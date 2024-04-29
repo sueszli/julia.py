@@ -33,7 +33,7 @@ _Speedup_
 _Efficiency of Parallelization_
 
 -   $\begin{aligned}E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)\end{aligned}$
--   what difference does each processor make?
+-   What difference does each processor make?
 
 ### Runtime and speed-up of parallel Julia set generator for $c_s$ case
 
@@ -65,7 +65,7 @@ srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 1100 --nprocs 1 # 1100
 
 ### Runtime and speed-up of parallel Julia set generator for $c_b$ case
 
-_table_
+_Table_
 
 | size | p   | mean runtime (s) | speed-up | par. eff. |
 | ---- | --- | ---------------- | -------- | --------- |
