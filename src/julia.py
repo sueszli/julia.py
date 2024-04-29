@@ -43,7 +43,8 @@ def sequential_julia(xmin, xmax, ymin, ymax, im_width, im_height, c):
 
 
 @trace
-def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c):
+def patch_sequential_julia(args):
+    xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c = args
     zabs_max = 10
     nit_max = 300
 
@@ -95,7 +96,7 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
             task_list.append((xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c))
 
     with Pool(nprocs) as pool:
-        completed_patches = pool.starmap(patch_sequential_julia, task_list)
+        completed_patches = pool.map(patch_sequential_julia, task_list)
 
     par = np.zeros((size, size))
     # for i, patch in enumerate(completed_patches):
