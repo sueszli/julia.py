@@ -6,14 +6,6 @@ import math
 from multiprocessing import Pool, TimeoutError
 
 
-# updated based on CLI arguments
-GROUP_SIZE = None
-GROUP_NUMBER = None
-
-# do not modify BENCHMARK_C
-BENCHMARK_C = complex(-0.2, -0.65)
-
-
 def c_from_group(group_size: int, group_number: int):
     CURVE_START = 48 / 64 * math.pi
     CURVE_END = 60 / 64 * math.pi
@@ -93,16 +85,11 @@ def get_valid_args() -> argparse.Namespace:
 if __name__ == "__main__":
     args = get_valid_args()
 
-    assert args.group_size is not None
-    assert args.group_number is not None
-    GROUP_SIZE = args.group_size
-    GROUP_NUMBER = args.group_number
-
     c = None
     if args.benchmark:
-        c = BENCHMARK_C
+        c = complex(-0.2, -0.65)  # do not modify
     else:
-        c = c_from_group(GROUP_SIZE, GROUP_NUMBER)
+        c = c_from_group(args.group_size, args.group_number)
 
     stime = time.perf_counter()
     julia_img = compute_julia_in_parallel(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
@@ -145,4 +132,4 @@ if __name__ == "__main__":
 
         plt.tight_layout()
         plt.savefig(args.o, bbox_inches="tight")
-        # plt.show()
+        plt.show()
