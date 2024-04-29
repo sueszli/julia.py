@@ -24,7 +24,6 @@ def benchmark(func):
     return wrapper
 
 
-@benchmark
 def sequential_julia(xmin, xmax, ymin, ymax, size, c):
     zabs_max = 10
     nit_max = 300
@@ -107,6 +106,7 @@ if __name__ == "__main__":
     parser.add_argument("-o", help="output file")
     args = parser.parse_args()
 
+    # pick julia set type
     c = None
     if args.benchmark:
         c = complex(-0.2, -0.65)
@@ -125,9 +125,12 @@ if __name__ == "__main__":
     print(f"{args.size};{args.patch};{args.nprocs};{rtime}")
 
     # validate correctness
+    seq_stime = time.perf_counter()
     seq = sequential_julia(args.xmin, args.xmax, args.ymin, args.ymax, args.size, c)
+    seq_rtime = time.perf_counter() - seq_stime
     assert np.allclose(julia_img, seq), "parallel implementation is incorrect"
 
+    # visualize
     if args.o is not None:
         matplotlib.use("agg")
         fig, ax = plt.subplots()
