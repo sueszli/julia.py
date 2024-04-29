@@ -51,9 +51,10 @@ if __name__ == "__main__":
     parser.add_argument("--ymax", help="", type=float, default=1.5)
     parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
     parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
-    parser.add_argument("--draw-axes", help="Whether to draw axes", action="store_true")
+    parser.add_argument("--draw-axes", help="whether to draw axes", action="store_true")
+
+    parser.add_argument("--benchmark", help="whether to execute the script with the benchmark julia set", action="store_true")
     parser.add_argument("-o", help="output file")
-    parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
     args = parser.parse_args()
 
     c = None
@@ -64,9 +65,7 @@ if __name__ == "__main__":
         CURVE_END = 60 / 64 * math.pi
         CURVE_SPAN = CURVE_END - CURVE_START
         CURVE_SCALE = 0.755
-        group_num = 13
-        total_groups = 30
-        phi = CURVE_END - group_num / (total_groups - 1) * CURVE_SPAN
+        phi = CURVE_END - 13 / (30 - 1) * CURVE_SPAN
         c = CURVE_SCALE * math.e ** (phi * 1j)
 
     stime = time.perf_counter()
