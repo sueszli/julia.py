@@ -4,7 +4,17 @@ to compile this markdown file to a pdf, use the following command:
 $ pandoc --read=markdown --write=latex --output=report.pdf --pdf-engine=xelatex --variable geometry:margin=20mm --variable documentclass:extarticle --variable fontsize:11pt report.md
 -->
 
-**Group 13:** Pia Schwarzinger (12017370), Yahya Jabary (11912007)
+# Assignment 1
+
+Name of authors: Pia Schwarzinger (12017370), Yahya Jabary (11912007)
+
+Date: 2024-04-18
+
+Course and assignment: Basics of Parallel Computing 191.114, SS 2024 – Assignment 1
+
+Group size: 2
+
+Group number: 13
 
 # 1. The Tasks
 
