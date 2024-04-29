@@ -8,6 +8,17 @@ import time
 import math
 from multiprocessing import Pool, TimeoutError
 
+import functools
+
+
+def trace(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print(f"{func.__name__}(args={args}, kwargs={kwargs})")
+        return func(*args, **kwargs)
+
+    return wrapper
+
 
 def sequential_julia(xmin, xmax, ymin, ymax, im_width, im_height, c):
     zabs_max = 10
@@ -31,7 +42,8 @@ def sequential_julia(xmin, xmax, ymin, ymax, im_width, im_height, c):
     return julia
 
 
-def partial_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c):
+@trace
+def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c):
     zabs_max = 10
     nit_max = 300
 
@@ -83,13 +95,12 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
             task_list.append((xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c))
 
     with Pool(nprocs) as pool:
-        completed_patches = pool.starmap(partial_sequential_julia, task_list)
+        completed_patches = pool.starmap(patch_sequential_julia, task_list)
 
     par = np.zeros((size, size))
-    # copy chunks back
-    for i, patch in enumerate(completed_patches):
-        x_start, x_end, y_start, y_end = task_list[i][4:8]
-        par[x_start:x_end, y_start:y_end] = patch
+    # for i, patch in enumerate(completed_patches):
+    #     x_start, x_end, y_start, y_end = task_list[i][4:8]
+    #     par[x_start:x_end, y_start:y_end] = patch
 
     seq = sequential_julia(xmin, xmax, ymin, ymax, size, size, c)
     print("Sequential:")
