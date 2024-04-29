@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 from re import U
 import numpy as np
 import argparse
