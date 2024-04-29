@@ -17,16 +17,15 @@ def sequential_julia(size, xmin, xmax, ymin, ymax, c):
     yheight = ymax - ymin
 
     julia = np.zeros((size, size))
-    for ix in range(size):
-        for iy in range(size):
+    for x in range(size):
+        for y in range(size):
             nit = 0
-            z = complex(ix / size * xwidth + xmin, iy / size * yheight + ymin)
+            z = complex(x / size * xwidth + xmin, y / size * yheight + ymin)
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
             ratio = nit / nit_max
-
-            julia[ix, iy] = ratio
+            julia[x, y] = ratio
 
     return julia
 
