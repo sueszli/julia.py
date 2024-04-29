@@ -1,17 +1,15 @@
 ---
 title: 'Assignment 1 - Basics of Parallel Computing 191.114, SS 2024'
 subtitle: '`GROUP_NUMBER`=13, `GROUP_SIZE`=2'
-date: '2024-04-18'
+date: '2024-04-01'
 author:
     - Pia Schwarzinger (12017370)
     - Yahya Jabary (11912007)
 
-toc: true
-
-geometry: margin=10mm
-fontsize: 11pt
-documentclass: extarticle
 papersize: a4
+geometry: margin=15mm
+fontsize: 11pt
+link-citations: true
 ---
 
 <!--
@@ -22,7 +20,7 @@ $ pandoc --read=markdown --write=latex --pdf-engine=xelatex --output=report.pdf 
 
 # 1. The Tasks
 
-## 1.1. Compute Speed-up and Parallel Efficiency for 2 Instance Sizes
+## Metrics
 
 _Speedup_
 
@@ -39,6 +37,8 @@ _Efficiency of Parallelization_
 
 -   What difference does each processor make?
 -   $\begin{aligned}E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)\end{aligned}$
+
+## 1.1. Compute Speed-up and Parallel Efficiency for 2 Instance Sizes
 
 _Table for S-Case_
 
@@ -85,7 +85,7 @@ _Table for B-Case_
 | 1100 | 24  | 0.900398         | 21.2183  | 0.607295  |
 | 1100 | 32  | 0.746145         | 25.6049  | 0.549633  |
 
-Keep in mind that while the speed-up was calculated using `p=1` as the reference point, the parallel efficiency was calculated using an average of the sequential runtime, by running the following commands 3 times on the Hydra-cluster and averaging the results:
+Same as before, the parallel efficiency was calculated using an average of the sequential runtime, by running the following commands 3 times on the Hydra-cluster and averaging the results:
 
 ```bash
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 --benchmark # 155;20;1;0.2803074959665537
@@ -101,14 +101,16 @@ _Comparing: Relative Speed-up vs. Number of Processes_
 _Comparing: Parallel Efficiency vs. Number of Processes_
 
 ![Absolute Runtime vs. Number of Processes](./assets/nprocs-exectime.png){#nprocs-exectime}
-
 ![Relative Speed-up vs. Number of Processes](./assets/nprocs-speedup.png){#nprocs-speedup}
-
 ![Parallel Efficiency vs. Number of Processes](./assets/nprocs-parefficiency.png){#nprocs-parefficiency}
 
 ## 1.2. Influence of Patch Size
 
+...
+
 ## 1.3. Finding the Best Patch Size
+
+...
 
 # 2. Speed-up Analysis
 
@@ -119,11 +121,19 @@ Comparing two sorting algorithms:
 
 The best runtime for a sequential implementation is in $T_{\text{seq}^*}(n) = \mathcal{O}(n \log n)$.
 
+...
+
 _the absolute speed-up of algorithm 1_
+
+...
 
 _the absolute speed-up of algorithm 2_
 
+...
+
 # 3. Weak Scaling Analysis
+
+...
 
 # Appendix
 
