@@ -12,7 +12,6 @@ from multiprocessing import Pool, TimeoutError
 def sequential_julia(size, xmin, xmax, ymin, ymax, c):
     zabs_max = 10
     nit_max = 300
-
     xwidth = xmax - xmin
     yheight = ymax - ymin
 
@@ -25,6 +24,7 @@ def sequential_julia(size, xmin, xmax, ymin, ymax, c):
                 z = z**2 + c
                 nit += 1
             ratio = nit / nit_max
+
             julia[x, y] = ratio
 
     return julia
