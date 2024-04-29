@@ -83,9 +83,7 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     with Pool(nprocs) as pool:
         completed_patches = pool.starmap(patch_sequential_julia, task_list)
 
-    par = np.zeros((size, size))
-    for patch in completed_patches:
-        par += patch
+    par = np.sum(completed_patches, axis=0)
     return par
 
 
