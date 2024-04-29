@@ -9,8 +9,8 @@ _Submission Information:_
 -   Name of authors: Pia Schwarzinger (12017370), Yahya Jabary (11912007)
 -   Date: 2024-04-18
 -   Course and assignment: Assignment 1, Basics of Parallel Computing 191.114, SS 2024
--   Group size: 2
--   Group number: 13
+-   `GROUP_SIZE`: 2
+-   `GROUP_NUMBER`: 13
 
 # 1. The Tasks
 

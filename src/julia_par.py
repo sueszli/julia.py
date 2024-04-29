@@ -6,50 +6,6 @@ import math
 from multiprocessing import Pool, TimeoutError
 
 
-def get_valid_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--size", help="image size in pixels (square images)", type=int, default=500)
-    parser.add_argument("--xmin", help="", type=float, default=-1.5)
-    parser.add_argument("--xmax", help="", type=float, default=1.5)
-    parser.add_argument("--ymin", help="", type=float, default=-1.5)
-    parser.add_argument("--ymax", help="", type=float, default=1.5)
-    parser.add_argument("--group-size", help="", type=int, default=None)
-    parser.add_argument("--group-number", help="", type=int, default=None)
-    parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
-    parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
-    parser.add_argument("--draw-axes", help="Whether to draw axes", action="store_true")
-    parser.add_argument("-o", help="output file")
-    parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
-    args = parser.parse_args()
-
-    if args.group_size is None or args.group_number is None:
-        raise ValueError("Please provide your group size and number to the GROUP_SIZE and GROUP_NUMBER variables.")
-    if args.group_size < 1 or args.group_size > 2:
-        raise ValueError("Group size must be either 1 or 2")
-    if args.group_number < 1 or args.group_number > 30:
-        raise ValueError("Group number must be between 1 and 30")
-
-    return args
-
-
-def c_from_group(group_size: int, group_number: int):
-    CURVE_START = 48 / 64 * math.pi
-    CURVE_END = 60 / 64 * math.pi
-    CURVE_SPAN = CURVE_END - CURVE_START
-    CURVE_SCALE = 0.755
-
-    if group_size == 1:
-        num_groups = 20
-        if group_number > num_groups:
-            raise Exception("Group number must be <=20 for 1 person groups")
-        phi = 2 * math.pi - CURVE_END + group_number / (num_groups - 1) * CURVE_SPAN
-    elif group_size == 2:
-        num_groups = 30
-        phi = CURVE_END - group_number / (num_groups - 1) * CURVE_SPAN
-
-    return CURVE_SCALE * math.e ** (phi * 1j)
-
-
 def compute_julia_set_sequential(xmin, xmax, ymin, ymax, im_width, im_height, c):
     zabs_max = 10
     nit_max = 300
@@ -83,13 +39,31 @@ def compute_julia_in_parallel(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
 
 
 if __name__ == "__main__":
-    args = get_valid_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--size", help="image size in pixels (square images)", type=int, default=500)
+    parser.add_argument("--xmin", help="", type=float, default=-1.5)
+    parser.add_argument("--xmax", help="", type=float, default=1.5)
+    parser.add_argument("--ymin", help="", type=float, default=-1.5)
+    parser.add_argument("--ymax", help="", type=float, default=1.5)
+    parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
+    parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
+    parser.add_argument("--draw-axes", help="Whether to draw axes", action="store_true")
+    parser.add_argument("-o", help="output file")
+    parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
+    args = parser.parse_args()
 
     c = None
     if args.benchmark:
         c = complex(-0.2, -0.65)  # do not modify
     else:
-        c = c_from_group(args.group_size, args.group_number)
+        CURVE_START = 48 / 64 * math.pi
+        CURVE_END = 60 / 64 * math.pi
+        CURVE_SPAN = CURVE_END - CURVE_START
+        CURVE_SCALE = 0.755
+        group_num = 13
+        total_groups = 30
+        phi = CURVE_END - group_num / (total_groups - 1) * CURVE_SPAN
+        c = CURVE_SCALE * math.e ** (phi * 1j)
 
     stime = time.perf_counter()
     julia_img = compute_julia_in_parallel(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
