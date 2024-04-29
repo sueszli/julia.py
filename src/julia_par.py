@@ -6,11 +6,6 @@ import math
 from multiprocessing import Pool, TimeoutError
 
 
-CURVE_START = 48 / 64 * math.pi
-CURVE_END = 60 / 64 * math.pi
-CURVE_SPAN = CURVE_END - CURVE_START
-CURVE_SCALE = 0.755
-
 # updated based on CLI arguments
 GROUP_SIZE = None
 GROUP_NUMBER = None
@@ -20,6 +15,11 @@ BENCHMARK_C = complex(-0.2, -0.65)
 
 
 def c_from_group(group_size: int | None, group_number: int | None):
+    CURVE_START = 48 / 64 * math.pi
+    CURVE_END = 60 / 64 * math.pi
+    CURVE_SPAN = CURVE_END - CURVE_START
+    CURVE_SCALE = 0.755
+
     if group_size is None or group_number is None:
         raise Exception("Please provide your group size and number " + "to the GROUP_SIZE and GROUP_NUMBER variables.")
 
