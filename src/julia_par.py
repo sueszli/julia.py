@@ -11,12 +11,9 @@ CURVE_END = 60 / 64 * math.pi
 CURVE_SPAN = CURVE_END - CURVE_START
 CURVE_SCALE = 0.755
 
-
 # Update according to your group size and number (see TUWEL)
-# GROUP_SIZE = None
-# GROUP_NUMBER = None
-GROUP_SIZE = 2
-GROUP_NUMBER = 13
+GROUP_SIZE = None
+GROUP_NUMBER = None
 
 # do not modify BENCHMARK_C
 BENCHMARK_C = complex(-0.2, -0.65)
