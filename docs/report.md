@@ -1,18 +1,24 @@
+---
+title: 'Assignment 1 - Basics of Parallel Computing 191.114, SS 2024'
+subtitle: '`GROUP_NUMBER`=13, `GROUP_SIZE`=2'
+date: '2024-04-18'
+author:
+    - Pia Schwarzinger (12017370)
+    - Yahya Jabary (11912007)
+
+toc: true
+
+geometry: margin=10mm
+fontsize: 11pt
+documentclass: extarticle
+papersize: a4
+---
+
 <!--
-to compile this markdown file to a pdf, use the following command:
+docs: https://pandoc.org/chunkedhtml-demo/6.2-variables.html
 
-$ pandoc --read=markdown --write=latex --pdf-engine=xelatex --variable geometry:margin=10mm --variable documentclass:extarticle --variable fontsize:11pt --variable papersize:a4 --output=report.pdf report.md
+$ pandoc --read=markdown --write=latex --pdf-engine=xelatex --output=report.pdf report.md
 -->
-
-<!-- make sure to reference and label every table and figure. the labels must have reasonable names -->
-
-_Submission Information:_
-
--   Name of authors: Pia Schwarzinger (12017370), Yahya Jabary (11912007)
--   Date: 2024-04-18
--   Course and assignment: Assignment 1, Basics of Parallel Computing 191.114, SS 2024
--   `GROUP_SIZE`: 2
--   `GROUP_NUMBER`: 13
 
 # 1. The Tasks
 
@@ -20,24 +26,21 @@ _Submission Information:_
 
 _Speedup_
 
+-   What difference does parallelization make?
 -   $\begin{aligned}S_a(n,p) = \frac{T_{\text{seq}}(n)}{T_{\text{par}}(n,p)}\end{aligned}$ = absolute speedup
 -   $\begin{aligned}S_r(n,p) = \frac{T_{\text{par}}(n, 1)}{T_{\text{par}}(n,p)}\end{aligned}$ = relative speedup
--   What difference does parallelization make?
 -   Where:
     -   $n$ = input size
     -   $p$ = number of processors
     -   $T_{\text{par}}(n,p)$ = parallel runtime
     -   $T_{\text{seq}}(n)$ = sequential runtime
--   Use the relative speedup when there isn't a sequential implementation
 
 _Efficiency of Parallelization_
 
--   $\begin{aligned}E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)\end{aligned}$
 -   What difference does each processor make?
+-   $\begin{aligned}E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)\end{aligned}$
 
-### Runtime and speed-up of parallel Julia set generator for $c_s$ case
-
-_Table_
+_Table for S-Case_
 
 | size | p   | mean runtime (s) | speed-up | par. eff. |
 | ---- | --- | ---------------- | -------- | --------- |
@@ -63,9 +66,7 @@ srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 # 155;2
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 1100 --nprocs 1 # 1100;20;1;18.806384983938187
 ```
 
-### Runtime and speed-up of parallel Julia set generator for $c_b$ case
-
-_Table_
+_Table for B-Case_
 
 | size | p   | mean runtime (s) | speed-up | par. eff. |
 | ---- | --- | ---------------- | -------- | --------- |
@@ -90,6 +91,20 @@ Keep in mind that while the speed-up was calculated using `p=1` as the reference
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 --benchmark # 155;20;1;0.2803074959665537
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 1100 --nprocs 1 --benchmark # 1100;20;1;13.123375411145389
 ```
+
+_Comparing: Absolute Speed-up vs. Number of Processes_
+
+The [exec-time plot](#nprocs-exectime) shows how due to the overhead
+
+_Comparing: Relative Speed-up vs. Number of Processes_
+
+_Comparing: Parallel Efficiency vs. Number of Processes_
+
+![Absolute Runtime vs. Number of Processes](./assets/nprocs-exectime.png){#nprocs-exectime}
+
+![Relative Speed-up vs. Number of Processes](./assets/nprocs-speedup.png){#nprocs-speedup}
+
+![Parallel Efficiency vs. Number of Processes](./assets/nprocs-parefficiency.png){#nprocs-parefficiency}
 
 ## 1.2. Influence of Patch Size
 
@@ -141,27 +156,7 @@ L1i cache:                       512 KiB
 L2 cache:                        16 MiB
 L3 cache:                        22 MiB
 NUMA node0 CPU(s):               0-15
-Vulnerability Itlb multihit:     KVM: Mitigation: VMX unsupported
-Vulnerability L1tf:              Mitigation; PTE Inversion
-Vulnerability Mds:               Mitigation; Clear CPU buffers; SMT disabled
-Vulnerability Meltdown:          Mitigation; PTI
-Vulnerability Mmio stale data:   Mitigation; Clear CPU buffers; SMT disabled
-Vulnerability Retbleed:          Mitigation; IBRS
-Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl and seccomp
-Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-Vulnerability Spectre v2:        Mitigation; IBRS, IBPB conditional, RSB filling, PBRSB-eIBRS Not affected
-Vulnerability Srbds:             Not affected
-Vulnerability Tsx async abort:   Mitigation; Clear CPU buffers; SMT disabled
-Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts ac
-                                 pi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_p
-                                 erfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dte
-                                 s64 monitor ds_cpl smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2
-                                 apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefet
-                                 ch cpuid_fault epb cat_l3 cdp_l3 invpcid_single pti intel_ppin ssbd mba ibrs ibpb stib
-                                 p fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f a
-                                 vx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt x
-                                 savec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat
-                                  pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke md_clear flush_l1d
+...
 ```
 
 ## A.2. Raw Data
