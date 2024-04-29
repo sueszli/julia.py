@@ -70,22 +70,6 @@ def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_en
 
 
 def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
-    """
-    # assuming size (mod patch) = 0
-    for x in 0 to size (step patch):
-        for y in 0 to size (step patch):
-            task_list.append( (x, y, patch, meta_information) )
-
-    # meta information may contain offsets, original image size, original boundaries of complex plane, etc.
-    create Pool with nprocs workers
-
-    # make sure that each task in the task_list is handled alone
-    # in multiprocessing.Pool.map, we need to specify chunksize=1
-    completed_patches = Pool.map(compute_patch, task_list, 1)
-    for p in completed_patches:
-        copy subimage of p to correct final position
-    """
-
     task_list = []
     for x in range(0, size, patch):
         for y in range(0, size, patch):
@@ -101,19 +85,7 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     par = np.zeros((size, size))
     for patch in completed_patches:
         par += patch
-
-    seq = sequential_julia(xmin, xmax, ymin, ymax, size, c)
-    print("Sequential:")
-    for row in seq:
-        print([int(x) for x in row])
-    print()
-    print("Parallel:")
-    for row in par:
-        print([int(x) for x in row])
-
-    assert np.allclose(par, seq)
-
-    return seq
+    return par
 
 
 if __name__ == "__main__":
@@ -143,6 +115,12 @@ if __name__ == "__main__":
         phi = CURVE_END - 13 / (30 - 1) * CURVE_SPAN
         c = CURVE_SCALE * math.e ** (phi * 1j)
 
+    # validate correctness
+    seq = sequential_julia(args.xmin, args.xmax, args.ymin, args.ymax, args.size, c)
+    par = parallel_julia(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
+    assert np.allclose(seq, par), "wrong result"
+
+    # benchmark time
     stime = time.perf_counter()
     julia_img = parallel_julia(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
     rtime = time.perf_counter() - stime
