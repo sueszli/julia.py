@@ -102,6 +102,7 @@ if __name__ == "__main__":
     if args.benchmark:
         c = BENCHMARK_C
     else:
+        assert GROUP_SIZE is not None and GROUP_NUMBER is not None
         c = c_from_group(GROUP_SIZE, GROUP_NUMBER)
 
     stime = time.perf_counter()
