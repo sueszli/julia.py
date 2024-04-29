@@ -14,21 +14,11 @@ GROUP_NUMBER = None
 BENCHMARK_C = complex(-0.2, -0.65)
 
 
-def c_from_group(group_size: int | None, group_number: int | None):
+def c_from_group(group_size: int, group_number: int):
     CURVE_START = 48 / 64 * math.pi
     CURVE_END = 60 / 64 * math.pi
     CURVE_SPAN = CURVE_END - CURVE_START
     CURVE_SCALE = 0.755
-
-    if group_size is None or group_number is None:
-        raise Exception("Please provide your group size and number " + "to the GROUP_SIZE and GROUP_NUMBER variables.")
-
-    # argument checking
-    if group_size < 1 or group_size > 2:
-        raise Exception("Group size must be either 1 or 2")
-
-    if group_number < 1 or group_number > 30:
-        raise Exception("Group number must be between 1 and 30")
 
     if group_size == 1:
         num_groups = 20
@@ -43,7 +33,6 @@ def c_from_group(group_size: int | None, group_number: int | None):
 
 
 def compute_julia_set_sequential(xmin, xmax, ymin, ymax, im_width, im_height, c):
-
     zabs_max = 10
     nit_max = 300
 
@@ -75,7 +64,7 @@ def compute_julia_in_parallel(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     return julia_img
 
 
-if __name__ == "__main__":
+def get_valid_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--size", help="image size in pixels (square images)", type=int, default=500)
     parser.add_argument("--xmin", help="", type=float, default=-1.5)
@@ -91,13 +80,24 @@ if __name__ == "__main__":
     parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
     args = parser.parse_args()
 
-    # print(args)
-    if args.group_size is not None:
-        GROUP_SIZE = args.group_size
-    if args.group_number is not None:
-        GROUP_NUMBER = args.group_number
+    if args.group_size is None or args.group_number is None:
+        raise ValueError("Please provide your group size and number to the GROUP_SIZE and GROUP_NUMBER variables.")
+    if args.group_size < 1 or args.group_size > 2:
+        raise ValueError("Group size must be either 1 or 2")
+    if args.group_number < 1 or args.group_number > 30:
+        raise ValueError("Group number must be between 1 and 30")
 
-    # assign c based on mode
+    return args
+
+
+if __name__ == "__main__":
+    args = get_valid_args()
+
+    assert args.group_size is not None
+    assert args.group_number is not None
+    GROUP_SIZE = args.group_size
+    GROUP_NUMBER = args.group_number
+
     c = None
     if args.benchmark:
         c = BENCHMARK_C
