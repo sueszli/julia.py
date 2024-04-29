@@ -11,11 +11,14 @@ from multiprocessing import Pool, TimeoutError
 import functools
 
 
-def trace(func):
+def benchmark(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        print(f"{func.__name__}(args={args}, kwargs={kwargs})")
-        return func(*args, **kwargs)
+        stime = time.perf_counter()
+        result = func(*args, **kwargs)
+        rtime = time.perf_counter() - stime
+        print(f"{func.__name__}() in {rtime :.10f} sec")
+        return result
 
     return wrapper
 
@@ -42,7 +45,7 @@ def sequential_julia(xmin, xmax, ymin, ymax, size, c):
     return julia
 
 
-@trace
+@benchmark
 def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, size, c):
     global COUNTER
 
