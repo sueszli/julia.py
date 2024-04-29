@@ -17,7 +17,8 @@ def benchmark(func):
         stime = time.perf_counter()
         result = func(*args, **kwargs)
         rtime = time.perf_counter() - stime
-        print(f"{func.__name__}() in {rtime :.10f} sec")
+        rtime_ms = rtime * 1000
+        print(f"{func.__name__}() in {rtime_ms:.4f} ms")
         return result
 
     return wrapper
@@ -46,10 +47,7 @@ def sequential_julia(xmin, xmax, ymin, ymax, size, c):
     return julia
 
 
-@benchmark
 def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, size, c):
-    global COUNTER
-
     zabs_max = 10
     nit_max = 300
 
@@ -57,8 +55,6 @@ def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_en
     yheight = ymax - ymin
 
     julia = np.zeros((size, size))
-
-    # only compute the patch, leave the rest as zeros
     for ix in range(x_start, x_end):
         for iy in range(y_start, y_end):
             nit = 0
@@ -73,6 +69,7 @@ def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_en
     return julia
 
 
+@benchmark
 def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     task_list = []
     for x in range(0, size, patch):
