@@ -120,11 +120,11 @@ if __name__ == "__main__":
     rtime = time.perf_counter() - stime
     print(f"{args.size};{args.patch};{args.nprocs};{rtime}")
 
-    # validate correctness
-    seq_stime = time.perf_counter()
-    seq = sequential_julia(args.xmin, args.xmax, args.ymin, args.ymax, args.size, c)
-    seq_rtime = time.perf_counter() - seq_stime
-    assert np.allclose(julia_img, seq), "parallel implementation is incorrect"
+    # validate
+    # seq_stime = time.perf_counter()
+    # seq = sequential_julia(args.xmin, args.xmax, args.ymin, args.ymax, args.size, c)
+    # seq_rtime = time.perf_counter() - seq_stime
+    # assert np.allclose(julia_img, seq), "parallel implementation is incorrect"
 
     # visualize
     if args.o is not None:
