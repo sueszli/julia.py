@@ -33,7 +33,7 @@ OUTFILE="output_exp22_1_${SLURM_JOB_ID}.dat"
 # OUTFILE="output_exp24_${SLURM_JOB_ID}.dat"
 
 NREP=3
-BINARY="python3 ./julia_par.py"
+BINARY="python3 ./julia_par.py" # update this to the path of your binary
 
 
 # remove old output data

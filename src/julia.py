@@ -9,45 +9,96 @@ import math
 from multiprocessing import Pool, TimeoutError
 
 
-def sequential_julia(size, xmin, xmax, ymin, ymax, c):
+def sequential_julia(xmin, xmax, ymin, ymax, im_width, im_height, c):
     zabs_max = 10
     nit_max = 300
+
     xwidth = xmax - xmin
     yheight = ymax - ymin
 
-    julia = np.zeros((size, size))
-    for x in range(size):
-        for y in range(size):
+    julia = np.zeros((im_width, im_height))
+    for ix in range(im_width):
+        for iy in range(im_height):
             nit = 0
-            z = complex(x / size * xwidth + xmin, y / size * yheight + ymin)
+            z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
             ratio = nit / nit_max
 
-            julia[x, y] = ratio
+            julia[ix, iy] = ratio
+
+    return julia
+
+
+def partial_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c):
+    zabs_max = 10
+    nit_max = 300
+
+    xwidth = xmax - xmin
+    yheight = ymax - ymin
+
+    im_width = x_end - x_start
+    im_height = y_end - y_start
+
+    julia = np.zeros((im_width, im_height))
+    for ix in range(x_start, x_end):
+        for iy in range(y_start, y_end):
+            nit = 0
+            z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
+            while abs(z) <= zabs_max and nit < nit_max:
+                z = z**2 + c
+                nit += 1
+            ratio = nit / nit_max
+
+            julia[ix, iy] = ratio
 
     return julia
 
 
 def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
-    seq = sequential_julia(size, xmin, xmax, ymin, ymax, c)
-
     """
     # assuming size (mod patch) = 0
     for x in 0 to size (step patch):
         for y in 0 to size (step patch):
             task_list.append( (x, y, patch, meta_information) )
-    
+
     # meta information may contain offsets, original image size, original boundaries of complex plane, etc.
     create Pool with nprocs workers
-    
+
     # make sure that each task in the task_list is handled alone
     # in multiprocessing.Pool.map, we need to specify chunksize=1
     completed_patches = Pool.map(compute_patch, task_list, 1)
     for p in completed_patches:
         copy subimage of p to correct final position
     """
+
+    task_list = []
+    for x in range(0, size, patch):
+        for y in range(0, size, patch):
+            x_start = x
+            x_end = min(x + patch, size)
+            y_start = y
+            y_end = min(y + patch, size)
+            task_list.append((xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c))
+
+    with Pool(nprocs) as pool:
+        completed_patches = pool.starmap(partial_sequential_julia, task_list)
+
+    par = np.zeros((size, size))
+    # copy chunks back
+    for i, patch in enumerate(completed_patches):
+        x_start, x_end, y_start, y_end = task_list[i][4:8]
+        par[x_start:x_end, y_start:y_end] = patch
+
+    seq = sequential_julia(xmin, xmax, ymin, ymax, size, size, c)
+    print("Sequential:")
+    for row in seq:
+        print([int(x) for x in row])
+    print()
+    print("Parallel:")
+    for row in par:
+        print([int(x) for x in row])
 
     return seq
 
