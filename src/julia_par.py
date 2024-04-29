@@ -1,7 +1,6 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-
 import numpy as np
 from re import U
 import argparse
@@ -10,36 +9,48 @@ import math
 from multiprocessing import Pool, TimeoutError
 
 
-def compute_julia_set_sequential(xmin, xmax, ymin, ymax, im_width, im_height, c):
+def sequential_julia(size, xmin, xmax, ymin, ymax, c):
     zabs_max = 10
     nit_max = 300
 
     xwidth = xmax - xmin
     yheight = ymax - ymin
 
-    julia = np.zeros((im_width, im_height))
-    for ix in range(im_width):
-        for iy in range(im_height):
+    julia = np.zeros((size, size))
+    for ix in range(size):
+        for iy in range(size):
             nit = 0
-            # map pixel position to a point in the complex plane
-            z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
-            # do the iterations
+            z = complex(ix / size * xwidth + xmin, iy / size * yheight + ymin)
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
             ratio = nit / nit_max
+
             julia[ix, iy] = ratio
 
     return julia
 
 
-def compute_julia_in_parallel(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
+def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
+    seq = sequential_julia(size, xmin, xmax, ymin, ymax, c)
 
-    # replace the following code
-    # with a parallel version
-    julia_img = compute_julia_set_sequential(xmin, xmax, ymin, ymax, size, size, c)
+    """
+    # assuming size (mod patch) = 0
+    for x in 0 to size (step patch):
+        for y in 0 to size (step patch):
+            task_list.append( (x, y, patch, meta_information) )
+    
+    # meta information may contain offsets, original image size, original boundaries of complex plane, etc.
+    create Pool with nprocs workers
+    
+    # make sure that each task in the task_list is handled alone
+    # in multiprocessing.Pool.map, we need to specify chunksize=1
+    completed_patches = Pool.map(compute_patch, task_list, 1)
+    for p in completed_patches:
+        copy subimage of p to correct final position
+    """
 
-    return julia_img
+    return seq
 
 
 if __name__ == "__main__":
@@ -49,10 +60,11 @@ if __name__ == "__main__":
     parser.add_argument("--xmax", help="", type=float, default=1.5)
     parser.add_argument("--ymin", help="", type=float, default=-1.5)
     parser.add_argument("--ymax", help="", type=float, default=1.5)
+
     parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
     parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
-    parser.add_argument("--draw-axes", help="whether to draw axes", action="store_true")
 
+    parser.add_argument("--draw-axes", help="whether to draw axes", action="store_true")
     parser.add_argument("--benchmark", help="whether to execute the script with the benchmark julia set", action="store_true")
     parser.add_argument("-o", help="output file")
     args = parser.parse_args()
@@ -69,7 +81,7 @@ if __name__ == "__main__":
         c = CURVE_SCALE * math.e ** (phi * 1j)
 
     stime = time.perf_counter()
-    julia_img = compute_julia_in_parallel(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
+    julia_img = parallel_julia(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
     rtime = time.perf_counter() - stime
     print(f"{args.size};{args.patch};{args.nprocs};{rtime}")
 
