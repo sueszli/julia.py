@@ -56,7 +56,7 @@ _Table_
 | 1100 | 24  | 0.654567         | 20.5021  | 1.19713   |
 | 1100 | 32  | 0.564249         | 23.7838  | 1.04156   |
 
-Keep in mind that while the speed-up was calculated using `p=1` as the reference point, the parallel efficiency was calculated using an average of the sequential runtime, by running the following commands 3 times and averaging the results:
+Keep in mind that while the speed-up was calculated using `p=1` as the reference point, the parallel efficiency was calculated using an average of the sequential runtime, by running the following commands 3 times on the Hydra-cluster and averaging the results:
 
 ```bash
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 # 155;20;1;0.39382300106808543
@@ -84,7 +84,7 @@ _table_
 | 1100 | 24  | 0.900398         | 21.2183  | 0.607295  |
 | 1100 | 32  | 0.746145         | 25.6049  | 0.549633  |
 
-Keep in mind that while the speed-up was calculated using `p=1` as the reference point, the parallel efficiency was calculated using an average of the sequential runtime, by running the following commands 3 times and averaging the results:
+Keep in mind that while the speed-up was calculated using `p=1` as the reference point, the parallel efficiency was calculated using an average of the sequential runtime, by running the following commands 3 times on the Hydra-cluster and averaging the results:
 
 ```bash
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 --benchmark # 155;20;1;0.2803074959665537
