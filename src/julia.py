@@ -81,7 +81,7 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
             task_list.append((xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, size, c))
 
     with Pool(nprocs) as pool:
-        completed_patches = pool.starmap(patch_sequential_julia, task_list)
+        completed_patches = pool.starmap(patch_sequential_julia, task_list, chunksize=1)
 
     julia = np.zeros((size, size))
     for i, patch in enumerate(completed_patches):
@@ -101,10 +101,8 @@ if __name__ == "__main__":
     parser.add_argument("--xmax", help="", type=float, default=1.5)
     parser.add_argument("--ymin", help="", type=float, default=-1.5)
     parser.add_argument("--ymax", help="", type=float, default=1.5)
-
     parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
     parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
-
     parser.add_argument("--draw-axes", help="whether to draw axes", action="store_true")
     parser.add_argument("--benchmark", help="whether to execute the script with the benchmark julia set", action="store_true")
     parser.add_argument("-o", help="output file")
@@ -132,7 +130,7 @@ if __name__ == "__main__":
     assert np.allclose(julia_img, seq), "parallel implementation is incorrect"
 
     if args.o is not None:
-        # matplotlib.use("agg") <-- uncomment to save img
+        matplotlib.use("agg")
         fig, ax = plt.subplots()
         ax.imshow(julia_img, interpolation="nearest", cmap=plt.get_cmap("hot"))
 
@@ -158,5 +156,5 @@ if __name__ == "__main__":
             ax.axis("off")
 
         plt.tight_layout()
-        # plt.savefig(args.o, bbox_inches="tight") <-- uncomment to save img
-        plt.show()
+        plt.savefig(args.o, bbox_inches="tight")
+        # plt.show()
