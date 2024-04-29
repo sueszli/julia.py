@@ -20,18 +20,18 @@ def trace(func):
     return wrapper
 
 
-def sequential_julia(xmin, xmax, ymin, ymax, im_width, im_height, c):
+def sequential_julia(xmin, xmax, ymin, ymax, size, c):
     zabs_max = 10
     nit_max = 300
 
     xwidth = xmax - xmin
     yheight = ymax - ymin
 
-    julia = np.zeros((im_width, im_height))
-    for ix in range(im_width):
-        for iy in range(im_height):
+    julia = np.zeros((size, size))
+    for ix in range(size):
+        for iy in range(size):
             nit = 0
-            z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
+            z = complex(ix / size * xwidth + xmin, iy / size * yheight + ymin)
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
@@ -43,22 +43,22 @@ def sequential_julia(xmin, xmax, ymin, ymax, im_width, im_height, c):
 
 
 @trace
-def patch_sequential_julia(args):
-    xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c = args
+def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, size, c):
+    global COUNTER
+
     zabs_max = 10
     nit_max = 300
 
     xwidth = xmax - xmin
     yheight = ymax - ymin
 
-    im_width = x_end - x_start
-    im_height = y_end - y_start
+    julia = np.zeros((size, size))
 
-    julia = np.zeros((im_width, im_height))
+    # only compute the patch, leave the rest as zeros
     for ix in range(x_start, x_end):
         for iy in range(y_start, y_end):
             nit = 0
-            z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
+            z = complex(ix / size * xwidth + xmin, iy / size * yheight + ymin)
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
@@ -93,17 +93,16 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
             x_end = min(x + patch, size)
             y_start = y
             y_end = min(y + patch, size)
-            task_list.append((xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, c))
+            task_list.append((xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_end, size, c))
 
     with Pool(nprocs) as pool:
-        completed_patches = pool.map(patch_sequential_julia, task_list)
+        completed_patches = pool.starmap(patch_sequential_julia, task_list)
 
     par = np.zeros((size, size))
-    # for i, patch in enumerate(completed_patches):
-    #     x_start, x_end, y_start, y_end = task_list[i][4:8]
-    #     par[x_start:x_end, y_start:y_end] = patch
+    for patch in completed_patches:
+        par += patch
 
-    seq = sequential_julia(xmin, xmax, ymin, ymax, size, size, c)
+    seq = sequential_julia(xmin, xmax, ymin, ymax, size, c)
     print("Sequential:")
     for row in seq:
         print([int(x) for x in row])
@@ -111,6 +110,8 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     print("Parallel:")
     for row in par:
         print([int(x) for x in row])
+
+    assert np.allclose(par, seq)
 
     return seq
 
