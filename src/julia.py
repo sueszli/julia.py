@@ -1,13 +1,9 @@
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 import numpy as np
 from re import U
 import argparse
 import time
 import math
 from multiprocessing import Pool, TimeoutError
-
 import functools
 
 
@@ -132,6 +128,10 @@ if __name__ == "__main__":
 
     # visualize
     if args.o is not None:
+        import matplotlib
+        import matplotlib.pyplot as plt
+        import matplotlib.cm as cm
+
         matplotlib.use("agg")
         fig, ax = plt.subplots()
         ax.imshow(julia_img, interpolation="nearest", cmap=plt.get_cmap("hot"))
