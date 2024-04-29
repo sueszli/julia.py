@@ -11,7 +11,7 @@ CURVE_END = 60 / 64 * math.pi
 CURVE_SPAN = CURVE_END - CURVE_START
 CURVE_SCALE = 0.755
 
-# Update according to your group size and number (see TUWEL)
+# updated based on CLI arguments
 GROUP_SIZE = None
 GROUP_NUMBER = None
 
@@ -19,7 +19,7 @@ GROUP_NUMBER = None
 BENCHMARK_C = complex(-0.2, -0.65)
 
 
-def c_from_group(group_size: int, group_number: int):
+def c_from_group(group_size: int | None, group_number: int | None):
     if group_size is None or group_number is None:
         raise Exception("Please provide your group size and number " + "to the GROUP_SIZE and GROUP_NUMBER variables.")
 
@@ -102,7 +102,6 @@ if __name__ == "__main__":
     if args.benchmark:
         c = BENCHMARK_C
     else:
-        assert GROUP_SIZE is not None and GROUP_NUMBER is not None
         c = c_from_group(GROUP_SIZE, GROUP_NUMBER)
 
     stime = time.perf_counter()
