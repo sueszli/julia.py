@@ -54,7 +54,7 @@ def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_en
     xwidth = xmax - xmin
     yheight = ymax - ymin
 
-    julia = np.zeros((size, size))
+    julia_patch = np.zeros((x_end - x_start, y_end - y_start))
     for ix in range(x_start, x_end):
         for iy in range(y_start, y_end):
             nit = 0
@@ -64,9 +64,9 @@ def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_en
                 nit += 1
             ratio = nit / nit_max
 
-            julia[ix, iy] = ratio
+            julia_patch[ix - x_start, iy - y_start] = ratio
 
-    return julia
+    return julia_patch
 
 
 @benchmark
@@ -83,8 +83,15 @@ def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     with Pool(nprocs) as pool:
         completed_patches = pool.starmap(patch_sequential_julia, task_list)
 
-    par = np.sum(completed_patches, axis=0)
-    return par
+    julia = np.zeros((size, size))
+    for i, patch in enumerate(completed_patches):
+        x_start = task_list[i][4]
+        x_end = task_list[i][5]
+        y_start = task_list[i][6]
+        y_end = task_list[i][7]
+        julia[x_start:x_end, y_start:y_end] = patch
+
+    return julia
 
 
 if __name__ == "__main__":
