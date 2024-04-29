@@ -1,0 +1,5 @@
+NPROCS=(16)
+SIZE=(800)
+PATCH=({1..30})
+BENCHMARK_SET=0    # c_s
+

@@ -1,0 +1,6 @@
+NPROCS=(1 2 4 8 16 24 32)
+SIZE=(155 1100)
+PATCH=(26)
+BENCHMARK_SET=0    # c_s
+OUTFILE="output_exp22_2_${SLURM_JOB_ID}.dat"
+
