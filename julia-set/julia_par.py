@@ -8,8 +8,10 @@ from multiprocessing import Pool, TimeoutError
 from julia_curve import c_from_group
 
 # Update according to your group size and number (see TUWEL)
-GROUP_SIZE = None
-GROUP_NUMBER = None
+# GROUP_SIZE = None
+# GROUP_NUMBER = None
+GROUP_SIZE = 2
+GROUP_NUMBER = 13
 
 # do not modify BENCHMARK_C
 BENCHMARK_C = complex(-0.2, -0.65)
