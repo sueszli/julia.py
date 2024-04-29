@@ -8,18 +8,19 @@ from multiprocessing import Pool, TimeoutError
 from julia_curve import c_from_group
 
 # Update according to your group size and number (see TUWEL)
-GROUP_SIZE   = None
+GROUP_SIZE = None
 GROUP_NUMBER = None
 
 # do not modify BENCHMARK_C
 BENCHMARK_C = complex(-0.2, -0.65)
+
 
 def compute_julia_set_sequential(xmin, xmax, ymin, ymax, im_width, im_height, c):
 
     zabs_max = 10
     nit_max = 300
 
-    xwidth  = xmax - xmin
+    xwidth = xmax - xmin
     yheight = ymax - ymin
 
     julia = np.zeros((im_width, im_height))
@@ -27,16 +28,16 @@ def compute_julia_set_sequential(xmin, xmax, ymin, ymax, im_width, im_height, c)
         for iy in range(im_height):
             nit = 0
             # Map pixel position to a point in the complex plane
-            z = complex(ix / im_width * xwidth + xmin,
-                        iy / im_height * yheight + ymin)
+            z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
             # Do the iterations
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
             ratio = nit / nit_max
-            julia[ix,iy] = ratio
+            julia[ix, iy] = ratio
 
     return julia
+
 
 def compute_julia_in_parallel(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
 
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
     args = parser.parse_args()
 
-    #print(args)
+    # print(args)
     if args.group_size is not None:
         GROUP_SIZE = args.group_size
     if args.group_number is not None:
@@ -73,29 +74,25 @@ if __name__ == "__main__":
     # assign c based on mode
     c = None
     if args.benchmark:
-        c = BENCHMARK_C 
+        c = BENCHMARK_C
     else:
-        c = c_from_group(GROUP_SIZE, GROUP_NUMBER) 
+        c = c_from_group(GROUP_SIZE, GROUP_NUMBER)
 
     stime = time.perf_counter()
-    julia_img = compute_julia_in_parallel(
-        args.size,
-        args.xmin, args.xmax, 
-        args.ymin, args.ymax, 
-        args.patch,
-        args.nprocs,
-        c)
+    julia_img = compute_julia_in_parallel(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
     rtime = time.perf_counter() - stime
 
     print(f"{args.size};{args.patch};{args.nprocs};{rtime}")
 
     if not args.o is None:
         import matplotlib
-        matplotlib.use('agg')
+
+        matplotlib.use("agg")
         import matplotlib.pyplot as plt
         import matplotlib.cm as cm
+
         fig, ax = plt.subplots()
-        ax.imshow(julia_img, interpolation='nearest', cmap=plt.get_cmap("hot"))
+        ax.imshow(julia_img, interpolation="nearest", cmap=plt.get_cmap("hot"))
 
         if args.draw_axes:
             # set labels correctly
@@ -109,17 +106,17 @@ if __name__ == "__main__":
             yheight = args.ymax - args.ymin
 
             xtick_labels = np.linspace(xmin, xmax, 7)
-            ax.set_xticks([(x-xmin) / xwidth * im_width for x in xtick_labels])
-            ax.set_xticklabels(['{:.1f}'.format(xtick) for xtick in xtick_labels])
+            ax.set_xticks([(x - xmin) / xwidth * im_width for x in xtick_labels])
+            ax.set_xticklabels(["{:.1f}".format(xtick) for xtick in xtick_labels])
             ytick_labels = np.linspace(ymin, ymax, 7)
-            ax.set_yticks([(y-ymin) / yheight * im_height for y in ytick_labels])
-            ax.set_yticklabels(['{:.1f}'.format(-ytick) for ytick in ytick_labels])
+            ax.set_yticks([(y - ymin) / yheight * im_height for y in ytick_labels])
+            ax.set_yticklabels(["{:.1f}".format(-ytick) for ytick in ytick_labels])
             ax.set_xlabel("Imag")
             ax.set_ylabel("Real")
         else:
             # disable axes
-            ax.axis("off") 
+            ax.axis("off")
 
         plt.tight_layout()
-        plt.savefig(args.o, bbox_inches='tight')
-        #plt.show()
+        plt.savefig(args.o, bbox_inches="tight")
+        # plt.show()
