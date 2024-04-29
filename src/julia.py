@@ -121,16 +121,15 @@ if __name__ == "__main__":
         phi = CURVE_END - 13 / (30 - 1) * CURVE_SPAN
         c = CURVE_SCALE * math.e ** (phi * 1j)
 
-    # validate correctness
-    seq = sequential_julia(args.xmin, args.xmax, args.ymin, args.ymax, args.size, c)
-    par = parallel_julia(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
-    assert np.allclose(seq, par), "wrong result"
-
     # benchmark time
     stime = time.perf_counter()
     julia_img = parallel_julia(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
     rtime = time.perf_counter() - stime
     print(f"{args.size};{args.patch};{args.nprocs};{rtime}")
+
+    # validate correctness
+    seq = sequential_julia(args.xmin, args.xmax, args.ymin, args.ymax, args.size, c)
+    assert np.allclose(julia_img, seq), "parallel implementation is incorrect"
 
     if args.o is not None:
         # matplotlib.use("agg") <-- uncomment to save img
