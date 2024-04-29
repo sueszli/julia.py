@@ -1,5 +1,9 @@
-from re import U
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+
 import numpy as np
+from re import U
 import argparse
 import time
 import math
@@ -54,7 +58,7 @@ if __name__ == "__main__":
 
     c = None
     if args.benchmark:
-        c = complex(-0.2, -0.65)  # do not modify
+        c = complex(-0.2, -0.65)
     else:
         CURVE_START = 48 / 64 * math.pi
         CURVE_END = 60 / 64 * math.pi
@@ -68,21 +72,14 @@ if __name__ == "__main__":
     stime = time.perf_counter()
     julia_img = compute_julia_in_parallel(args.size, args.xmin, args.xmax, args.ymin, args.ymax, args.patch, args.nprocs, c)
     rtime = time.perf_counter() - stime
-
     print(f"{args.size};{args.patch};{args.nprocs};{rtime}")
 
-    if not args.o is None:
-        import matplotlib
-
-        matplotlib.use("agg")
-        import matplotlib.pyplot as plt
-        import matplotlib.cm as cm
-
+    if args.o is not None:
+        # matplotlib.use("agg") <-- uncomment to save img
         fig, ax = plt.subplots()
         ax.imshow(julia_img, interpolation="nearest", cmap=plt.get_cmap("hot"))
 
         if args.draw_axes:
-            # set labels correctly
             im_width = args.size
             im_height = args.size
             xmin = args.xmin
@@ -101,9 +98,8 @@ if __name__ == "__main__":
             ax.set_xlabel("Imag")
             ax.set_ylabel("Real")
         else:
-            # disable axes
             ax.axis("off")
 
         plt.tight_layout()
-        plt.savefig(args.o, bbox_inches="tight")
+        # plt.savefig(args.o, bbox_inches="tight") <-- uncomment to save img
         plt.show()
