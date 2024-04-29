@@ -21,9 +21,9 @@ def compute_julia_set_sequential(xmin, xmax, ymin, ymax, im_width, im_height, c)
     for ix in range(im_width):
         for iy in range(im_height):
             nit = 0
-            # Map pixel position to a point in the complex plane
+            # map pixel position to a point in the complex plane
             z = complex(ix / im_width * xwidth + xmin, iy / im_height * yheight + ymin)
-            # Do the iterations
+            # do the iterations
             while abs(z) <= zabs_max and nit < nit_max:
                 z = z**2 + c
                 nit += 1
