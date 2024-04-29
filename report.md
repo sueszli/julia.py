@@ -1,20 +1,16 @@
 <!--
 to compile this markdown file to a pdf, use the following command:
 
-$ pandoc --read=markdown --write=latex --output=report.pdf --pdf-engine=xelatex --variable geometry:margin=20mm --variable documentclass:extarticle --variable fontsize:11pt report.md
+$ pandoc --read=markdown --write=latex --pdf-engine=xelatex --variable geometry:margin=10mm --variable documentclass:extarticle --variable fontsize:11pt --variable papersize:a4 --output=report.pdf report.md
 -->
 
-# Assignment 1
+_Submission Information:_
 
-Name of authors: Pia Schwarzinger (12017370), Yahya Jabary (11912007)
-
-Date: 2024-04-18
-
-Course and assignment: Basics of Parallel Computing 191.114, SS 2024 – Assignment 1
-
-Group size: 2
-
-Group number: 13
+-   Name of authors: Pia Schwarzinger (12017370), Yahya Jabary (11912007)
+-   Date: 2024-04-18
+-   Course and assignment: Assignment 1, Basics of Parallel Computing 191.114, SS 2024
+-   Group size: 2
+-   Group number: 13
 
 # 1. The Tasks
 
@@ -51,5 +47,3 @@ Tables above show the runtime measurements and the respective speed-up and effic
 # 2. Speed-up Analysis
 
 # 3. Weak Scaling Analysis
-
-# 4. Conclusion
