@@ -69,7 +69,6 @@ def patch_sequential_julia(xmin, xmax, ymin, ymax, x_start, x_end, y_start, y_en
     return julia_patch
 
 
-@benchmark
 def parallel_julia(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     task_list = []
     for x in range(0, size, patch):
