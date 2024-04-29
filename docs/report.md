@@ -46,4 +46,15 @@ Tables above show the runtime measurements and the respective speed-up and effic
 
 # 2. Speed-up Analysis
 
+Comparing two sorting algorithms:
+
+-   Algorithm 1: $T_{par}^{\mathcal{A}_1}(n,p)=\mathcal{O}(\frac{n\log n}p+\log n)$
+-   Algorithm 2: $T_{par}^{\mathcal{A}_2}(n,p)=\mathcal{O}(\frac{n\log n}p+n)$
+
+The best runtime for a sequential implementation is in $T_{\text{seq}^*}(n) = \mathcal{O}(n \log n)$.
+
+_the absolute speed-up of algorithm 1_
+
+_the absolute speed-up of algorithm 2_
+
 # 3. Weak Scaling Analysis
