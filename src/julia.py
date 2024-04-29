@@ -23,6 +23,7 @@ def benchmark(func):
     return wrapper
 
 
+@benchmark
 def sequential_julia(xmin, xmax, ymin, ymax, size, c):
     zabs_max = 10
     nit_max = 300
