@@ -1,6 +1,10 @@
-<!-- $ pandoc --read=markdown --write=latex --output=report.pdf --pdf-engine=xelatex --variable geometry:margin=20mm --variable documentclass:extarticle --variable fontsize:11pt report.md -->
+<!--
+to compile this markdown file to a pdf, use the following command:
 
-**Group 13:** Pia Schwarzinger (...), Yahya Jabary (11912007)
+$ pandoc --read=markdown --write=latex --output=report.pdf --pdf-engine=xelatex --variable geometry:margin=20mm --variable documentclass:extarticle --variable fontsize:11pt report.md
+-->
+
+**Group 13:** Pia Schwarzinger (12017370), Yahya Jabary (11912007)
 
 # 1. The Tasks
 
