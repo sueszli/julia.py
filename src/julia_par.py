@@ -6,6 +6,32 @@ import math
 from multiprocessing import Pool, TimeoutError
 
 
+def get_valid_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--size", help="image size in pixels (square images)", type=int, default=500)
+    parser.add_argument("--xmin", help="", type=float, default=-1.5)
+    parser.add_argument("--xmax", help="", type=float, default=1.5)
+    parser.add_argument("--ymin", help="", type=float, default=-1.5)
+    parser.add_argument("--ymax", help="", type=float, default=1.5)
+    parser.add_argument("--group-size", help="", type=int, default=None)
+    parser.add_argument("--group-number", help="", type=int, default=None)
+    parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
+    parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
+    parser.add_argument("--draw-axes", help="Whether to draw axes", action="store_true")
+    parser.add_argument("-o", help="output file")
+    parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
+    args = parser.parse_args()
+
+    if args.group_size is None or args.group_number is None:
+        raise ValueError("Please provide your group size and number to the GROUP_SIZE and GROUP_NUMBER variables.")
+    if args.group_size < 1 or args.group_size > 2:
+        raise ValueError("Group size must be either 1 or 2")
+    if args.group_number < 1 or args.group_number > 30:
+        raise ValueError("Group number must be between 1 and 30")
+
+    return args
+
+
 def c_from_group(group_size: int, group_number: int):
     CURVE_START = 48 / 64 * math.pi
     CURVE_END = 60 / 64 * math.pi
@@ -54,32 +80,6 @@ def compute_julia_in_parallel(size, xmin, xmax, ymin, ymax, patch, nprocs, c):
     julia_img = compute_julia_set_sequential(xmin, xmax, ymin, ymax, size, size, c)
 
     return julia_img
-
-
-def get_valid_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--size", help="image size in pixels (square images)", type=int, default=500)
-    parser.add_argument("--xmin", help="", type=float, default=-1.5)
-    parser.add_argument("--xmax", help="", type=float, default=1.5)
-    parser.add_argument("--ymin", help="", type=float, default=-1.5)
-    parser.add_argument("--ymax", help="", type=float, default=1.5)
-    parser.add_argument("--group-size", help="", type=int, default=None)
-    parser.add_argument("--group-number", help="", type=int, default=None)
-    parser.add_argument("--patch", help="patch size in pixels (square images)", type=int, default=20)
-    parser.add_argument("--nprocs", help="number of workers", type=int, default=1)
-    parser.add_argument("--draw-axes", help="Whether to draw axes", action="store_true")
-    parser.add_argument("-o", help="output file")
-    parser.add_argument("--benchmark", help="Whether to execute the script with the benchmark Julia set", action="store_true")
-    args = parser.parse_args()
-
-    if args.group_size is None or args.group_number is None:
-        raise ValueError("Please provide your group size and number to the GROUP_SIZE and GROUP_NUMBER variables.")
-    if args.group_size < 1 or args.group_size > 2:
-        raise ValueError("Group size must be either 1 or 2")
-    if args.group_number < 1 or args.group_number > 30:
-        raise ValueError("Group number must be between 1 and 30")
-
-    return args
 
 
 if __name__ == "__main__":
