@@ -202,15 +202,17 @@ Since the average work per processor is w and the parallel algorithm runs in $O(
 
 ## 4.2 Input size for different p
 
-Given that n=100 when p=1, the various input sizes for different numbers of processors can be computed as follows. This time we decided to do the calculations in R as presented in the lecture.
+Given that n=100 when p=1, the various input sizes for different numbers of processors can be computed as follows. This time we decided to perform the calculations in R closely following the code presented in the lecture, as can be seen in listing~\ref{lst:r_code}.
 
-\begin{lstlisting}[language=R]
+\begin{lstlisting}[language=R, caption={Calculation n for various values of p}, label={lst:r_code}]
 n <- 100
 w <- n^4
 df <- data.frame(p=c(2,4,8,16,128))
 df$n <- ceiling((df$p*w)^(1/4))
 print(df)
 \end{lstlisting}
+
+Table~\ref{tab:input_sizes} shows the output of the code and presents the necessary input size for various numbers of cores.
 
 \begin{table}[htbp]
     \centering
