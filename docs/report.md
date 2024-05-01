@@ -18,7 +18,7 @@ docs: https://pandoc.org/chunkedhtml-demo/6.2-variables.html
 $ pandoc --read=markdown --write=latex --pdf-engine=xelatex --output=report.pdf report.md
 -->
 
-# 1. The Tasks
+# 2. The Tasks
 
 ## Metrics
 
@@ -38,7 +38,7 @@ _Efficiency of Parallelization_
 -   What difference does each processor make?
 -   $\begin{aligned}E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)\end{aligned}$
 
-## 1.1. Compute Speed-up and Parallel Efficiency for 2 Instance Sizes
+## 2.1. Compute Speed-up and Parallel Efficiency for 2 Instance Sizes
 
 _Table for S-Case_
 
@@ -104,36 +104,130 @@ _Comparing: Parallel Efficiency vs. Number of Processes_
 ![Relative Speed-up vs. Number of Processes](./assets/nprocs-speedup.png){#nprocs-speedup}
 ![Parallel Efficiency vs. Number of Processes](./assets/nprocs-parefficiency.png){#nprocs-parefficiency}
 
-## 1.2. Influence of Patch Size
+## 2.2. Influence of Patch Size
 
 ...
 
-## 1.3. Finding the Best Patch Size
+## 2.3. Finding the Best Patch Size
 
 ...
 
-# 2. Speed-up Analysis
+# 3. Speed-up Analysis
 
-Comparing two sorting algorithms:
+## 3.1 Absolute speed up
+One can calculate the absolute speed up by computing $S_{a}^{A_i}(n, p) = \frac{T_{seq}^*(n)}{T_{par}(n, p)} $. \\
 
--   Algorithm 1: $T_{par}^{\mathcal{A}_1}(n,p)=\mathcal{O}(\frac{n\log n}p+\log n)$
--   Algorithm 2: $T_{par}^{\mathcal{A}_2}(n,p)=\mathcal{O}(\frac{n\log n}p+n)$
+Algorithm sequential:
+\begin{align*}
+    &T_{\text{seq}}^*(n) = O(n \log n) \\
+    &T^*_{\text{seq}}(1000) = O(1000 \log 1000) \approx 6907.76
+\end{align*}
 
-The best runtime for a sequential implementation is in $T_{\text{seq}^*}(n) = \mathcal{O}(n \log n)$.
+Algorithm A1:
+\begin{align*}
+    &T^{A_1}_{\text{par}}(n, p) = O\left(\frac{n \log n}{p} + \log n\right) \\
+    &T^{A_1}_{\text{par}}(1000, 4) \approx 1733.85 \\
+    &T^{A_1}_{\text{par}}(1000, 16) \approx 438.64 \\
+    &T^{A_1}_{\text{par}}(1000, 64) \approx 114.84
+\end{align*}
 
-...
+\begin{align*}
+    &S_{a}^{A_1} (1000, 4) = \frac{6907.76}{1733.85} \approx 3.98\\
+    &S_{a}^{A_1} (1000, 16) = \frac{6907.76}{438.64} \approx 15.74\\
+    &S_{a}^{A_1}(1000, 64) = \frac{6907.76}{114.84} \approx 60.15
+\end{align*}
 
-_the absolute speed-up of algorithm 1_
+Algorithm A2:
+\begin{align*}
+    &T^{A_2}_{\text{par}}(n, p) = O\left(\frac{n \log n}{p} + n\right) \\
+    &T^{A_2}_{\text{par}}(1000, 4) \approx 2726.94 \\
+    &T^{A_2}_{\text{par}}(1000, 16) \approx 1431.73 \\
+    &T^{A_2}_{\text{par}}(1000, 64) \approx 1107.93
+\end{align*}
 
-...
+\begin{align*}
+    &S_{a}^{A_2} (1000, 4) = \frac{6907.76}{2726.94} \approx 2.53\\
+    &S_{a}^{A_2} (1000, 16) = \frac{6907.76}{1431.73} \approx = 4.82\\
+    &S_{a}^{A_2} (1000, 64) = \frac{6907.76}{1107.93} \approx = 6.23
+\end{align*}
 
-_the absolute speed-up of algorithm 2_
+## 3.2 Parallel Efficiency
 
-...
+One can calculate the parallel efficiency by computing $E^{Ai} (n, p) = \frac{S_{a}^{A_i} (n, p)}{p} $. \\
 
-# 3. Weak Scaling Analysis
+Algorithm A1:
+\begin{align*}
+    &E^{A_1}(1000, 4) = \frac{S_{a}^{A_1} (1000, 4)}{4} \approx 1.0 \\
+    &E^{A_1}(1000, 16) = \frac{S_{a}^{A_1} (1000, 16)}{16} \approx 0.98 \\
+    &E^{A_1}(1000, 64) = \frac{S_{a}^{A_1}(1000, 64)}{64} \approx 0.94
+\end{align*}
 
-...
+Algorithm A2:
+\begin{align*}
+    &E^{A_2} (1000, 4) = \frac{S_{a}^{A_2} (1000, 4)}{4} \approx 0.63 \\
+    &E^{A_2} (1000, 16) = \frac{S_{a}^{A_2} (1000, 16)}{16} \approx 0.30 \\
+    &E^{A_2} (1000, 64) = \frac{S_{a}^{A_2} (1000, 64)}{64} \approx 0.1
+\end{align*}
+
+## 3.3 Potential Speed-up
+
+According to Amdahl's Law the potential speed up is bounded by the sequential fraction of the code.\\
+
+Algorithm A1:\\
+The sequential fraction of A1 is $s_1 = \frac{\log n}{\frac{n \log n}{p} + \log n} = \frac{p}{n+p}$.
+
+\begin{align*}
+    &S^{A_1}(n) = \frac{1}{s_1 + \frac{1-s_1}{p}} \leq \frac{1}{s_1} = \frac{1}{\frac{p}{n+p} + \frac{1-\frac{p}{n+p}}{p}} \leq \frac{1}{\frac{p}{n+p}}
+\end{align*}
+
+Algorithm A2:\\
+The sequential fraction of A2 is $s_2 = \frac{\log n}{\frac{n \log n}{p} + n} = \frac{\log n * p}{n*(\log n + p)}$.
+
+\begin{align*}
+    &S^{A_2}(n) = \frac{1}{s_2 + \frac{1-s_2}{p}} \leq \frac{1}{s_2} = \frac{1}{\frac{\log n * p}{n*(\log n + p)} + \frac{1-\frac{\log n * p}{n*(\log n + p)}}{p}} \leq \frac{1}{\frac{\log n * p}{n*(\log n + p)}}
+\end{align*}
+
+# 4. Weak Scaling Analysis
+
+## 4.1 Growth of input size
+
+\begin{align*}
+    & O(\frac{n^4}{p}) = O(w)\\ 
+    & \frac{n^4}{p} = w \\
+    & n^4 = pw \\
+    & n = {(pw)}^{\frac{1}{4}}
+\end{align*}
+
+Since the average work per processor is w and the parallel algorithm runs in $O(\frac{n^4}{p})$, n needs to increase as the fourth root of the product of w and p to keep the average work at O(n)
+
+## 4.2 Input size for different p
+
+Given that n=100 when p=1, the various input sizes for different numbers of processors can be computed as follows. This time we decided to do the calculations in R as presented in the lecture.
+
+\begin{lstlisting}[language=R]
+n <- 100
+w <- n^4
+df <- data.frame(p=c(2,4,8,16,128))
+df$n <- ceiling((df$p*w)^(1/4))
+print(df)
+\end{lstlisting}
+
+\begin{table}[htbp]
+    \centering
+    \label{tab:input_sizes}
+    \begin{tabular}{cc}
+    \toprule
+    $p$ & $n$ \\
+    \midrule
+    2 & 119 \\
+    4 & 142 \\
+    8 & 169 \\
+    16 & 200 \\
+    128 & 337 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Required input sizes for different numbers of processors}
+\end{table}
 
 # Appendix
 
