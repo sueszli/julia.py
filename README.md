@@ -1,5 +1,9 @@
 ![Julia Set](./assets/out.png)
 
+see: https://en.wikipedia.org/wiki/Julia_set
+
+<br><br><br>
+
 # benchmark results
 
 we used two different seeds we refer to as the "special seed" and the "benchmark seed" to evaluate the performance of our implementation.
