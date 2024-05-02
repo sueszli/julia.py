@@ -115,58 +115,59 @@ _Comparing: Parallel Efficiency vs. Number of Processes_
 # 3. Speed-up Analysis
 
 ## 3.1 Absolute speed up
-One can calculate the absolute speed up by computing $S_{a}^{A_i}(n, p) = \frac{T_{seq}^*(n)}{T_{par}(n, p)} $. \\
+
+One can calculate the absolute speed up by computing $S*{a}^{A_i}(n, p) = \frac{T*{seq}^\*(n)}{T\_{par}(n, p)} $. \\
 
 Algorithm sequential:
 \begin{align*}
-    &T_{\text{seq}}^*(n) = O(n \log n) \\
-    &T^*_{\text{seq}}(1000) = O(1000 \log 1000) \approx 6907.76
-\end{align*}
+&T\_{\text{seq}}^*(n) = O(n \log n) \\
+&T^_\_{\text{seq}}(1000) = O(1000 \log 1000) \approx 6907.76
+\end{align_}
 
 Algorithm A1:
 \begin{align*}
-    &T^{A_1}_{\text{par}}(n, p) = O\left(\frac{n \log n}{p} + \log n\right) \\
-    &T^{A_1}_{\text{par}}(1000, 4) \approx 1733.85 \\
-    &T^{A_1}_{\text{par}}(1000, 16) \approx 438.64 \\
-    &T^{A_1}_{\text{par}}(1000, 64) \approx 114.84
+&T^{A*1}*{\text{par}}(n, p) = O\left(\frac{n \log n}{p} + \log n\right) \\
+&T^{A*1}*{\text{par}}(1000, 4) \approx 1733.85 \\
+&T^{A*1}*{\text{par}}(1000, 16) \approx 438.64 \\
+&T^{A*1}*{\text{par}}(1000, 64) \approx 114.84
 \end{align*}
 
 \begin{align*}
-    &S_{a}^{A_1} (1000, 4) = \frac{6907.76}{1733.85} \approx 3.98\\
-    &S_{a}^{A_1} (1000, 16) = \frac{6907.76}{438.64} \approx 15.74\\
-    &S_{a}^{A_1}(1000, 64) = \frac{6907.76}{114.84} \approx 60.15
+&S*{a}^{A_1} (1000, 4) = \frac{6907.76}{1733.85} \approx 3.98\\
+&S*{a}^{A*1} (1000, 16) = \frac{6907.76}{438.64} \approx 15.74\\
+&S*{a}^{A_1}(1000, 64) = \frac{6907.76}{114.84} \approx 60.15
 \end{align*}
 
 Algorithm A2:
 \begin{align*}
-    &T^{A_2}_{\text{par}}(n, p) = O\left(\frac{n \log n}{p} + n\right) \\
-    &T^{A_2}_{\text{par}}(1000, 4) \approx 2726.94 \\
-    &T^{A_2}_{\text{par}}(1000, 16) \approx 1431.73 \\
-    &T^{A_2}_{\text{par}}(1000, 64) \approx 1107.93
+&T^{A*2}*{\text{par}}(n, p) = O\left(\frac{n \log n}{p} + n\right) \\
+&T^{A*2}*{\text{par}}(1000, 4) \approx 2726.94 \\
+&T^{A*2}*{\text{par}}(1000, 16) \approx 1431.73 \\
+&T^{A*2}*{\text{par}}(1000, 64) \approx 1107.93
 \end{align*}
 
 \begin{align*}
-    &S_{a}^{A_2} (1000, 4) = \frac{6907.76}{2726.94} \approx 2.53\\
-    &S_{a}^{A_2} (1000, 16) = \frac{6907.76}{1431.73} \approx = 4.82\\
-    &S_{a}^{A_2} (1000, 64) = \frac{6907.76}{1107.93} \approx = 6.23
+&S*{a}^{A_2} (1000, 4) = \frac{6907.76}{2726.94} \approx 2.53\\
+&S*{a}^{A*2} (1000, 16) = \frac{6907.76}{1431.73} \approx = 4.82\\
+&S*{a}^{A_2} (1000, 64) = \frac{6907.76}{1107.93} \approx = 6.23
 \end{align*}
 
 ## 3.2 Parallel Efficiency
 
-One can calculate the parallel efficiency by computing $E^{Ai} (n, p) = \frac{S_{a}^{A_i} (n, p)}{p} $. \\
+One can calculate the parallel efficiency by computing $E^{Ai} (n, p) = \frac{S\_{a}^{A_i} (n, p)}{p} $. \\
 
 Algorithm A1:
 \begin{align*}
-    &E^{A_1}(1000, 4) = \frac{S_{a}^{A_1} (1000, 4)}{4} \approx 1.0 \\
-    &E^{A_1}(1000, 16) = \frac{S_{a}^{A_1} (1000, 16)}{16} \approx 0.98 \\
-    &E^{A_1}(1000, 64) = \frac{S_{a}^{A_1}(1000, 64)}{64} \approx 0.94
+&E^{A*1}(1000, 4) = \frac{S*{a}^{A*1} (1000, 4)}{4} \approx 1.0 \\
+&E^{A_1}(1000, 16) = \frac{S*{a}^{A*1} (1000, 16)}{16} \approx 0.98 \\
+&E^{A_1}(1000, 64) = \frac{S*{a}^{A_1}(1000, 64)}{64} \approx 0.94
 \end{align*}
 
 Algorithm A2:
 \begin{align*}
-    &E^{A_2} (1000, 4) = \frac{S_{a}^{A_2} (1000, 4)}{4} \approx 0.63 \\
-    &E^{A_2} (1000, 16) = \frac{S_{a}^{A_2} (1000, 16)}{16} \approx 0.30 \\
-    &E^{A_2} (1000, 64) = \frac{S_{a}^{A_2} (1000, 64)}{64} \approx 0.1
+&E^{A*2} (1000, 4) = \frac{S*{a}^{A*2} (1000, 4)}{4} \approx 0.63 \\
+&E^{A_2} (1000, 16) = \frac{S*{a}^{A*2} (1000, 16)}{16} \approx 0.30 \\
+&E^{A_2} (1000, 64) = \frac{S*{a}^{A_2} (1000, 64)}{64} \approx 0.1
 \end{align*}
 
 ## 3.3 Potential Speed-up
@@ -177,14 +178,14 @@ Algorithm A1:\\
 The sequential fraction of A1 is $s_1 = \frac{\log n}{\frac{n \log n}{p} + \log n} = \frac{p}{n+p}$.
 
 \begin{align*}
-    &S^{A_1}(n) = \frac{1}{s_1 + \frac{1-s_1}{p}} \leq \frac{1}{s_1} = \frac{1}{\frac{p}{n+p} + \frac{1-\frac{p}{n+p}}{p}} \leq \frac{1}{\frac{p}{n+p}}
+&S^{A_1}(n) = \frac{1}{s_1 + \frac{1-s_1}{p}} \leq \frac{1}{s_1} = \frac{1}{\frac{p}{n+p} + \frac{1-\frac{p}{n+p}}{p}} \leq \frac{1}{\frac{p}{n+p}}
 \end{align*}
 
 Algorithm A2:\\
 The sequential fraction of A2 is $s_2 = \frac{\log n}{\frac{n \log n}{p} + n} = \frac{\log n * p}{n*(\log n + p)}$.
 
 \begin{align*}
-    &S^{A_2}(n) = \frac{1}{s_2 + \frac{1-s_2}{p}} \leq \frac{1}{s_2} = \frac{1}{\frac{\log n * p}{n*(\log n + p)} + \frac{1-\frac{\log n * p}{n*(\log n + p)}}{p}} \leq \frac{1}{\frac{\log n * p}{n*(\log n + p)}}
+&S^{A_2}(n) = \frac{1}{s_2 + \frac{1-s_2}{p}} \leq \frac{1}{s_2} = \frac{1}{\frac{\log n * p}{n*(\log n + p)} + \frac{1-\frac{\log n * p}{n*(\log n + p)}}{p}} \leq \frac{1}{\frac{\log n * p}{n*(\log n + p)}}
 \end{align*}
 
 # 4. Weak Scaling Analysis
@@ -192,10 +193,10 @@ The sequential fraction of A2 is $s_2 = \frac{\log n}{\frac{n \log n}{p} + n} = 
 ## 4.1 Growth of input size
 
 \begin{align*}
-    & O(\frac{n^4}{p}) = O(w)\\ 
-    & \frac{n^4}{p} = w \\
-    & n^4 = pw \\
-    & n = {(pw)}^{\frac{1}{4}}
+& O(\frac{n^4}{p}) = O(w)\\
+& \frac{n^4}{p} = w \\
+& n^4 = pw \\
+& n = {(pw)}^{\frac{1}{4}}
 \end{align*}
 
 Since the average work per processor is w and the parallel algorithm runs in $O(\frac{n^4}{p})$, n needs to increase as the fourth root of the product of w and p to keep the average work at O(n)
@@ -208,27 +209,27 @@ Given that n=100 when p=1, the various input sizes for different numbers of proc
 n <- 100
 w <- n^4
 df <- data.frame(p=c(2,4,8,16,128))
-df$n <- ceiling((df$p*w)^(1/4))
+df$n <- ceiling((df$p\*w)^(1/4))
 print(df)
 \end{lstlisting}
 
 Table~\ref{tab:input_sizes} shows the output of the code and presents the necessary input size for various numbers of cores.
 
 \begin{table}[htbp]
-    \centering
-    \label{tab:input_sizes}
-    \begin{tabular}{cc}
-    \toprule
-    $p$ & $n$ \\
-    \midrule
-    2 & 119 \\
-    4 & 142 \\
-    8 & 169 \\
-    16 & 200 \\
-    128 & 337 \\
-    \bottomrule
-    \end{tabular}
-    \caption{Required input sizes for different numbers of processors}
+\centering
+\label{tab:input_sizes}
+\begin{tabular}{cc}
+\toprule
+$p$ & $n$ \\
+\midrule
+2 & 119 \\
+4 & 142 \\
+8 & 169 \\
+16 & 200 \\
+128 & 337 \\
+\bottomrule
+\end{tabular}
+\caption{Required input sizes for different numbers of processors}
 \end{table}
 
 # Appendix
