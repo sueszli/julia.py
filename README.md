@@ -1,5 +1,3 @@
-parallel implementation and benchmark of the julia set in python
-
 ![Julia Set](./assets/out.png)
 
 <br><br><br>
