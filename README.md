@@ -1,6 +1,6 @@
-a parallel and straightforward implementation of the julia set in python
-
 ![Julia Set](./assets/out.png)
+
+# benchmark results
 
 we used two different seeds we refer to as the "special seed" and the "benchmark seed" to evaluate the performance of our implementation.
 
