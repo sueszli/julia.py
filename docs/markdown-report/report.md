@@ -1,30 +1,3 @@
-![image](figs/info-logo.pdf){height=".9cm"}
-
-TU Wien\
-Faculty of Informatics\
-Research Group for Parallel Computing
-
-::: center
-**Basics of Parallel Computing**\
-2024S\
-Assignment 1
-:::
-
-2024-05-02\
-
----
-
-height 1px
-
-**2 Person Group 13**\
-=2 1: Pia [Schwarzinger]{.smallcaps}, 12017370\
-2: Yahya [Jabary]{.smallcaps}, 11912007 Pia [Schwarzinger]{.smallcaps},
-12017370
-
----
-
-height 1px
-
 # The Tasks
 
 ## Compute Speed-up and Parallel Efficiency for 2 Instance Sizes
@@ -55,7 +28,6 @@ size p mean runtime (s) speed-up par. eff.
     1100   24           0.654567    20.5021     1.19713
     1100   32           0.564249    23.7838     1.04156
 
-: Runtime and speed-up of parallel Julia set generator for $c_s$ case.
 :::
 
 Keep in mind that while the speed-up was calculated using $p=1$ as the
