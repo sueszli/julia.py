@@ -1,6 +1,6 @@
-![Julia Set](./assets/out.png)
+a parallel and straightforward implementation of the julia set in python
 
-simple and parallel implementation of the julia set in python.
+![Julia Set](./assets/out.png)
 
 # benchmarking
 
@@ -9,8 +9,8 @@ we used two different seeds we refer to as the "special seed" and the "benchmark
 _speedup_
 
 -   what difference does parallelization make?
--   $\begin{aligned}S_a(n,p) = \frac{T_{\text{seq}}(n)}{T_{\text{par}}(n,p)}\end{aligned}$ = absolute speedup
--   $\begin{aligned}S_r(n,p) = \frac{T_{\text{par}}(n, 1)}{T_{\text{par}}(n,p)}\end{aligned}$ = relative speedup
+-   $S_a(n,p) = \frac{T_{\text{seq}}(n)}{T_{\text{par}}(n,p)}$ = absolute speedup
+-   $S_r(n,p) = \frac{T_{\text{par}}(n, 1)}{T_{\text{par}}(n,p)}$ = relative speedup
 -   where:
     -   $n$ = input size
     -   $p$ = number of processors
@@ -20,7 +20,7 @@ _speedup_
 _efficiency of parallelization_
 
 -   what difference does each processor make?
--   $\begin{aligned}E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)\end{aligned}$
+-   $E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)$
 
 _special seed_
 
