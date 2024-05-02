@@ -112,7 +112,7 @@ NUMA node(s):                    1
 Vendor ID:                       GenuineIntel
 CPU family:                      6
 Model:                           85
-Model name:                      Intel(R) Xeon(R) Gold 6130 CPU @ 2.10GHz 🔥
+Model name:                      Intel(R) Xeon(R) Gold 6130 CPU @ 2.10GHz
 Stepping:                        4
 CPU MHz:                         1000.151
 CPU max MHz:                     3700.0000
