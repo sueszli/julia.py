@@ -2,9 +2,25 @@ a parallel and straightforward implementation of the julia set in python
 
 ![Julia Set](./assets/out.png)
 
-# benchmarking
-
 we used two different seeds we refer to as the "special seed" and the "benchmark seed" to evaluate the performance of our implementation.
+
+![Absolute Runtime vs. Number of Processes](./assets/nprocs-exectime.png)
+
+![Relative Speed-up vs. Number of Processes](./assets/nprocs-speedup.png)
+
+![Parallel Efficiency vs. Number of Processes](./assets/nprocs-parefficiency.png)
+
+we opted for logarithmic scaling on all y-axes in our graphs to enhance the visibility of function shapes/gradients over the marginal differences.
+
+the findings highlight the importance of considering load size and parallel processing efficiency in computational analysis. variation in seed choice has minimal impact compared to load size on results. larger datasets show sharper decline in runtime with increasing processes, while smaller ones exhibit diminishing returns and eventual increase in runtime due to overhead. parallel efficiency decreases with more processes, with the b-case starting at a lower efficiency than the s-case, indicating higher compute-intensity in the latter.
+
+![Best Patch Size](./assets/best_patch_size.png)
+
+![Patch Size Runtime](./assets/patch_size_runtime.png)
+
+we also found out that the best patch size is 29, which leads to an average runtime of 0.702 seconds.
+
+# metrics
 
 _speedup_
 
@@ -17,10 +33,12 @@ _speedup_
     -   $T_{\text{par}}(n,p)$ = parallel runtime
     -   $T_{\text{seq}}(n)$ = sequential runtime
 
-_efficiency of parallelization_
+_parallelization efficiency_
 
 -   what difference does each processor make?
 -   $E(n,p) = \frac{T_{\text{seq}}(n)}{p \cdot T_{\text{par}}(n,p)} = \frac{1}{p} \cdot S_a(n,p)$
+
+# raw data
 
 _special seed_
 
@@ -41,7 +59,9 @@ _special seed_
 | 1100 | 24  | 0.654567         | 20.5021  | 1.19713   |
 | 1100 | 32  | 0.564249         | 23.7838  | 1.04156   |
 
-the speed-up was calculated using $p=1$ as the reference point, the parallel efficiency was calculated using an average of the sequential runtime.
+the speed-up was calculated using $p=1$ as the reference point.
+
+the parallel efficiency was calculated using an average of the sequential runtime.
 
 ```bash
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 # 155;20;1;0.39382300106808543
@@ -67,32 +87,16 @@ _benchmark seed_
 | 1100 | 24  | 0.900398         | 21.2183  | 0.607295  |
 | 1100 | 32  | 0.746145         | 25.6049  | 0.549633  |
 
-same as before:
+same as before, just with a different seed.
 
 ```bash
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 155 --nprocs 1 --benchmark # 155;20;1;0.2803074959665537
 srun -p q_student -t 1 -N 1 -c 32 python3 julia.py --size 1100 --nprocs 1 --benchmark # 1100;20;1;13.123375411145389
 ```
 
-![Absolute Runtime vs. Number of Processes](./assets/nprocs-exectime.png)
+# system specs
 
-![Relative Speed-up vs. Number of Processes](./assets/nprocs-speedup.png)
-
-![Parallel Efficiency vs. Number of Processes](./assets/nprocs-parefficiency.png)
-
-we opted for logarithmic scaling on all y-axes in our graphs to enhance the visibility of function shapes/gradients over the marginal differences.
-
-the findings highlight the importance of considering load size and parallel processing efficiency in computational analysis. variation in seed choice has minimal impact compared to load size on results. larger datasets show sharper decline in runtime with increasing processes, while smaller ones exhibit diminishing returns and eventual increase in runtime due to overhead. parallel efficiency decreases with more processes, with the b-case starting at a lower efficiency than the s-case, indicating higher compute-intensity in the latter.
-
-![Best Patch Size](./assets/best_patch_size.png)
-
-![Patch Size Runtime](./assets/patch_size_runtime.png)
-
-we also found out that the best patch size is 29, which leads to an average runtime of 0.702 seconds.
-
-# benchmark system specs
-
-system specs:
+the system used for benchmarking was a hydra node with the following specs:
 
 ```plaintext
 bopc23s9@hydra-head:~$ lscpu
