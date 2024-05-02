@@ -16,10 +16,6 @@ we opted for logarithmic scaling on all y-axes in our graphs to enhance the visi
 
 the findings highlight the importance of considering load size and parallel processing efficiency in computational analysis. variation in seed choice has minimal impact compared to load size on results. larger datasets show sharper decline in runtime with increasing processes, while smaller ones exhibit diminishing returns and eventual increase in runtime due to overhead. parallel efficiency decreases with more processes, with the b-case starting at a lower efficiency than the s-case, indicating higher compute-intensity in the latter.
 
-![Best Patch Size](./assets/best_patch_size.png)
-
-![Patch Size Runtime](./assets/patch_size_runtime.png)
-
 we also found out that the best patch size is 29, which leads to an average runtime of 0.702 seconds.
 
 # metrics
