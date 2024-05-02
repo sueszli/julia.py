@@ -1,6 +1,6 @@
-![Julia Set](./assets/out.png)
+parallel implementation and benchmark of the julia set in python
 
-see: https://en.wikipedia.org/wiki/Julia_set
+![Julia Set](./assets/out.png)
 
 <br><br><br>
 
