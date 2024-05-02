@@ -1,0 +1,50 @@
+NPROCS=(32)
+SIZE=(950)
+PATCH=(1 5 10 20 55 150 400)
+BENCHMARK_SET=0    # c_s
+
+
+python3 ./julia.py --nprocs 32 --size 950 --patch 1
+python3 ./julia.py --nprocs 32 --size 950 --patch 1
+python3 ./julia.py --nprocs 32 --size 950 --patch 1
+python3 ./julia.py --nprocs 32 --size 950 --patch 5
+python3 ./julia.py --nprocs 32 --size 950 --patch 5
+python3 ./julia.py --nprocs 32 --size 950 --patch 5
+python3 ./julia.py --nprocs 32 --size 950 --patch 10
+python3 ./julia.py --nprocs 32 --size 950 --patch 10
+python3 ./julia.py --nprocs 32 --size 950 --patch 10
+python3 ./julia.py --nprocs 32 --size 950 --patch 20
+python3 ./julia.py --nprocs 32 --size 950 --patch 20
+python3 ./julia.py --nprocs 32 --size 950 --patch 20
+python3 ./julia.py --nprocs 32 --size 950 --patch 55
+python3 ./julia.py --nprocs 32 --size 950 --patch 55
+python3 ./julia.py --nprocs 32 --size 950 --patch 55
+python3 ./julia.py --nprocs 32 --size 950 --patch 150
+python3 ./julia.py --nprocs 32 --size 950 --patch 150
+python3 ./julia.py --nprocs 32 --size 950 --patch 150
+python3 ./julia.py --nprocs 32 --size 950 --patch 400
+python3 ./julia.py --nprocs 32 --size 950 --patch 400
+python3 ./julia.py --nprocs 32 --size 950 --patch 400
+
+
+950;1;32;60.38315498735756
+950;1;32;58.993379454128444
+950;1;32;59.664796941913664
+950;5;32;2.4295669128187
+950;5;32;2.457375079859048
+950;5;32;2.430592040065676
+950;10;32;0.8235339601524174
+950;10;32;0.8456530389375985
+950;10;32;0.8123667249456048
+950;20;32;0.592178599908948
+950;20;32;0.5885163000784814
+950;20;32;0.5882865060120821
+950;55;32;0.640842576045543
+950;55;32;0.6622877516783774
+950;55;32;0.6463527246378362
+950;150;32;1.804339012131095
+950;150;32;1.7855969751253724
+950;150;32;1.7837719358503819
+950;400;32;5.342996523249894
+950;400;32;5.354430069215596
+950;400;32;5.3442102540284395

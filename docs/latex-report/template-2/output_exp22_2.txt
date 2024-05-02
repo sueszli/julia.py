@@ -1,0 +1,93 @@
+NPROCS=(1 2 4 8 16 24 32)
+SIZE=(155 1100)
+PATCH=(26)
+BENCHMARK_SET=0    # c_s
+OUTFILE="output_exp22_2_${SLURM_JOB_ID}.dat"
+
+
+python3 ./julia.py --nprocs 1 --size 155 --patch 26
+python3 ./julia.py --nprocs 1 --size 155 --patch 26
+python3 ./julia.py --nprocs 1 --size 155 --patch 26
+python3 ./julia.py --nprocs 1 --size 1100 --patch 26
+python3 ./julia.py --nprocs 1 --size 1100 --patch 26
+python3 ./julia.py --nprocs 1 --size 1100 --patch 26
+python3 ./julia.py --nprocs 2 --size 155 --patch 26
+python3 ./julia.py --nprocs 2 --size 155 --patch 26
+python3 ./julia.py --nprocs 2 --size 155 --patch 26
+python3 ./julia.py --nprocs 2 --size 1100 --patch 26
+python3 ./julia.py --nprocs 2 --size 1100 --patch 26
+python3 ./julia.py --nprocs 2 --size 1100 --patch 26
+python3 ./julia.py --nprocs 4 --size 155 --patch 26
+python3 ./julia.py --nprocs 4 --size 155 --patch 26
+python3 ./julia.py --nprocs 4 --size 155 --patch 26
+python3 ./julia.py --nprocs 4 --size 1100 --patch 26
+python3 ./julia.py --nprocs 4 --size 1100 --patch 26
+python3 ./julia.py --nprocs 4 --size 1100 --patch 26
+python3 ./julia.py --nprocs 8 --size 155 --patch 26
+python3 ./julia.py --nprocs 8 --size 155 --patch 26
+python3 ./julia.py --nprocs 8 --size 155 --patch 26
+python3 ./julia.py --nprocs 8 --size 1100 --patch 26
+python3 ./julia.py --nprocs 8 --size 1100 --patch 26
+python3 ./julia.py --nprocs 8 --size 1100 --patch 26
+python3 ./julia.py --nprocs 16 --size 155 --patch 26
+python3 ./julia.py --nprocs 16 --size 155 --patch 26
+python3 ./julia.py --nprocs 16 --size 155 --patch 26
+python3 ./julia.py --nprocs 16 --size 1100 --patch 26
+python3 ./julia.py --nprocs 16 --size 1100 --patch 26
+python3 ./julia.py --nprocs 16 --size 1100 --patch 26
+python3 ./julia.py --nprocs 24 --size 155 --patch 26
+python3 ./julia.py --nprocs 24 --size 155 --patch 26
+python3 ./julia.py --nprocs 24 --size 155 --patch 26
+python3 ./julia.py --nprocs 24 --size 1100 --patch 26
+python3 ./julia.py --nprocs 24 --size 1100 --patch 26
+python3 ./julia.py --nprocs 24 --size 1100 --patch 26
+python3 ./julia.py --nprocs 32 --size 155 --patch 26
+python3 ./julia.py --nprocs 32 --size 155 --patch 26
+python3 ./julia.py --nprocs 32 --size 155 --patch 26
+python3 ./julia.py --nprocs 32 --size 1100 --patch 26
+python3 ./julia.py --nprocs 32 --size 1100 --patch 26
+python3 ./julia.py --nprocs 32 --size 1100 --patch 26
+
+
+155;26;1;0.392238802742213
+155;26;1;0.39877972193062305
+155;26;1;0.3912382051348686
+1100;26;1;19.34426457900554
+1100;26;1;18.90565126761794
+1100;26;1;19.064889647066593
+155;26;2;0.20706806099042296
+155;26;2;0.20968409720808268
+155;26;2;0.2159389308653772
+1100;26;2;9.65854894882068
+1100;26;2;9.758664200082421
+1100;26;2;9.597689433023334
+155;26;4;0.12078673578798771
+155;26;4;0.12187985517084599
+155;26;4;0.12278737686574459
+1100;26;4;4.8538289330899715
+1100;26;4;4.949722504708916
+1100;26;4;4.896979348734021
+155;26;8;0.08609647722914815
+155;26;8;0.08687825128436089
+155;26;8;0.0856924457475543
+1100;26;8;2.4588615149259567
+1100;26;8;2.4403636367060244
+1100;26;8;2.4585742950439453
+155;26;16;0.08432547515258193
+155;26;16;0.08534767106175423
+155;26;16;0.08608504896983504
+1100;26;16;1.2857805700041354
+1100;26;16;1.28942183079198
+1100;26;16;1.2837325409054756
+155;26;24;0.09584450582042336
+155;26;24;0.09703108435496688
+155;26;24;0.09624077333137393
+1100;26;24;0.9055881663225591
+1100;26;24;0.8943913546390831
+1100;26;24;0.9012130876071751
+155;26;32;0.10889460984617472
+155;26;32;0.10903614293783903
+155;26;32;0.1076613599434495
+1100;26;32;0.7539521278813481
+1100;26;32;0.7489344119094312
+1100;26;32;0.7355474359355867

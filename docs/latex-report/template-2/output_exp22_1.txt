@@ -1,0 +1,93 @@
+NPROCS=(1 2 4 8 16 24 32)
+SIZE=(155 1100)
+PATCH=(26)
+BENCHMARK_SET=1      # c_b
+OUTFILE="output_exp22_1_${SLURM_JOB_ID}.dat"
+
+
+python3 ./julia.py --nprocs 1 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 1 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 1 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 1 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 1 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 1 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 2 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 2 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 2 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 2 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 2 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 2 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 4 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 4 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 4 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 4 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 4 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 4 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 8 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 8 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 8 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 8 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 8 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 8 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 16 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 16 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 16 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 16 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 16 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 16 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 24 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 24 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 24 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 24 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 24 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 24 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 32 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 32 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 32 --size 155 --patch 26 --benchmark
+python3 ./julia.py --nprocs 32 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 32 --size 1100 --patch 26 --benchmark
+python3 ./julia.py --nprocs 32 --size 1100 --patch 26 --benchmark
+
+
+155;26;1;0.27615245105698705
+155;26;1;0.27596693905070424
+155;26;1;0.2771365772932768
+1100;26;1;13.435972596984357
+1100;26;1;13.452274681068957
+1100;26;1;13.371691829990596
+155;26;2;0.14638189878314734
+155;26;2;0.14576987363398075
+155;26;2;0.1462678317911923
+1100;26;2;6.670089309103787
+1100;26;2;6.613465172238648
+1100;26;2;6.7021133550442755
+155;26;4;0.08490922581404448
+155;26;4;0.08491231314837933
+155;26;4;0.08519301796332002
+1100;26;4;3.3561069620773196
+1100;26;4;3.3553116391412914
+1100;26;4;3.421122542116791
+155;26;8;0.06856991816312075
+155;26;8;0.06856326712295413
+155;26;8;0.06828531296923757
+1100;26;8;1.6898975907824934
+1100;26;8;1.7937131081707776
+1100;26;8;1.6963165369816124
+155;26;16;0.07205457100644708
+155;26;16;0.0730455950833857
+155;26;16;0.07325727492570877
+1100;26;16;0.9077705508098006
+1100;26;16;0.9078279393725097
+1100;26;16;0.9103577299974859
+155;26;24;0.0845845378935337
+155;26;24;0.08471266506239772
+155;26;24;0.08427527407184243
+1100;26;24;0.656599803827703
+1100;26;24;0.6573387430980802
+1100;26;24;0.6497617312707007
+155;26;32;0.0973281990736723
+155;26;32;0.09837603475898504
+155;26;32;0.09687442006543279
+1100;26;32;0.5734831769950688
+1100;26;32;0.5541784320957959
+1100;26;32;0.565086467191577

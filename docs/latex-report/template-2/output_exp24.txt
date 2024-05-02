@@ -1,0 +1,188 @@
+NPROCS=(16)
+SIZE=(800)
+PATCH=({1..30})
+BENCHMARK_SET=0    # c_s
+
+
+python3 ./julia.py --nprocs 16 --size 800 --patch 1
+python3 ./julia.py --nprocs 16 --size 800 --patch 1
+python3 ./julia.py --nprocs 16 --size 800 --patch 1
+python3 ./julia.py --nprocs 16 --size 800 --patch 2
+python3 ./julia.py --nprocs 16 --size 800 --patch 2
+python3 ./julia.py --nprocs 16 --size 800 --patch 2
+python3 ./julia.py --nprocs 16 --size 800 --patch 3
+python3 ./julia.py --nprocs 16 --size 800 --patch 3
+python3 ./julia.py --nprocs 16 --size 800 --patch 3
+python3 ./julia.py --nprocs 16 --size 800 --patch 4
+python3 ./julia.py --nprocs 16 --size 800 --patch 4
+python3 ./julia.py --nprocs 16 --size 800 --patch 4
+python3 ./julia.py --nprocs 16 --size 800 --patch 5
+python3 ./julia.py --nprocs 16 --size 800 --patch 5
+python3 ./julia.py --nprocs 16 --size 800 --patch 5
+python3 ./julia.py --nprocs 16 --size 800 --patch 6
+python3 ./julia.py --nprocs 16 --size 800 --patch 6
+python3 ./julia.py --nprocs 16 --size 800 --patch 6
+python3 ./julia.py --nprocs 16 --size 800 --patch 7
+python3 ./julia.py --nprocs 16 --size 800 --patch 7
+python3 ./julia.py --nprocs 16 --size 800 --patch 7
+python3 ./julia.py --nprocs 16 --size 800 --patch 8
+python3 ./julia.py --nprocs 16 --size 800 --patch 8
+python3 ./julia.py --nprocs 16 --size 800 --patch 8
+python3 ./julia.py --nprocs 16 --size 800 --patch 9
+python3 ./julia.py --nprocs 16 --size 800 --patch 9
+python3 ./julia.py --nprocs 16 --size 800 --patch 9
+python3 ./julia.py --nprocs 16 --size 800 --patch 10
+python3 ./julia.py --nprocs 16 --size 800 --patch 10
+python3 ./julia.py --nprocs 16 --size 800 --patch 10
+python3 ./julia.py --nprocs 16 --size 800 --patch 11
+python3 ./julia.py --nprocs 16 --size 800 --patch 11
+python3 ./julia.py --nprocs 16 --size 800 --patch 11
+python3 ./julia.py --nprocs 16 --size 800 --patch 12
+python3 ./julia.py --nprocs 16 --size 800 --patch 12
+python3 ./julia.py --nprocs 16 --size 800 --patch 12
+python3 ./julia.py --nprocs 16 --size 800 --patch 13
+python3 ./julia.py --nprocs 16 --size 800 --patch 13
+python3 ./julia.py --nprocs 16 --size 800 --patch 13
+python3 ./julia.py --nprocs 16 --size 800 --patch 14
+python3 ./julia.py --nprocs 16 --size 800 --patch 14
+python3 ./julia.py --nprocs 16 --size 800 --patch 14
+python3 ./julia.py --nprocs 16 --size 800 --patch 15
+python3 ./julia.py --nprocs 16 --size 800 --patch 15
+python3 ./julia.py --nprocs 16 --size 800 --patch 15
+python3 ./julia.py --nprocs 16 --size 800 --patch 16
+python3 ./julia.py --nprocs 16 --size 800 --patch 16
+python3 ./julia.py --nprocs 16 --size 800 --patch 16
+python3 ./julia.py --nprocs 16 --size 800 --patch 17
+python3 ./julia.py --nprocs 16 --size 800 --patch 17
+python3 ./julia.py --nprocs 16 --size 800 --patch 17
+python3 ./julia.py --nprocs 16 --size 800 --patch 18
+python3 ./julia.py --nprocs 16 --size 800 --patch 18
+python3 ./julia.py --nprocs 16 --size 800 --patch 18
+python3 ./julia.py --nprocs 16 --size 800 --patch 19
+python3 ./julia.py --nprocs 16 --size 800 --patch 19
+python3 ./julia.py --nprocs 16 --size 800 --patch 19
+python3 ./julia.py --nprocs 16 --size 800 --patch 20
+python3 ./julia.py --nprocs 16 --size 800 --patch 20
+python3 ./julia.py --nprocs 16 --size 800 --patch 20
+python3 ./julia.py --nprocs 16 --size 800 --patch 21
+python3 ./julia.py --nprocs 16 --size 800 --patch 21
+python3 ./julia.py --nprocs 16 --size 800 --patch 21
+python3 ./julia.py --nprocs 16 --size 800 --patch 22
+python3 ./julia.py --nprocs 16 --size 800 --patch 22
+python3 ./julia.py --nprocs 16 --size 800 --patch 22
+python3 ./julia.py --nprocs 16 --size 800 --patch 23
+python3 ./julia.py --nprocs 16 --size 800 --patch 23
+python3 ./julia.py --nprocs 16 --size 800 --patch 23
+python3 ./julia.py --nprocs 16 --size 800 --patch 24
+python3 ./julia.py --nprocs 16 --size 800 --patch 24
+python3 ./julia.py --nprocs 16 --size 800 --patch 24
+python3 ./julia.py --nprocs 16 --size 800 --patch 25
+python3 ./julia.py --nprocs 16 --size 800 --patch 25
+python3 ./julia.py --nprocs 16 --size 800 --patch 25
+python3 ./julia.py --nprocs 16 --size 800 --patch 26
+python3 ./julia.py --nprocs 16 --size 800 --patch 26
+python3 ./julia.py --nprocs 16 --size 800 --patch 26
+python3 ./julia.py --nprocs 16 --size 800 --patch 27
+python3 ./julia.py --nprocs 16 --size 800 --patch 27
+python3 ./julia.py --nprocs 16 --size 800 --patch 27
+python3 ./julia.py --nprocs 16 --size 800 --patch 28
+python3 ./julia.py --nprocs 16 --size 800 --patch 28
+python3 ./julia.py --nprocs 16 --size 800 --patch 28
+python3 ./julia.py --nprocs 16 --size 800 --patch 29
+python3 ./julia.py --nprocs 16 --size 800 --patch 29
+python3 ./julia.py --nprocs 16 --size 800 --patch 29
+python3 ./julia.py --nprocs 16 --size 800 --patch 30
+python3 ./julia.py --nprocs 16 --size 800 --patch 30
+python3 ./julia.py --nprocs 16 --size 800 --patch 30
+
+
+800;1;16;51.77733509801328
+800;1;16;48.679752216208726
+800;1;16;49.604969315230846
+800;2;16;12.208631441928446
+800;2;16;12.400218938011676
+800;2;16;12.67593849496916
+800;3;16;5.231156553607434
+800;3;16;5.173088782932609
+800;3;16;5.30134785734117
+800;4;16;2.795454104896635
+800;4;16;2.8061751988716424
+800;4;16;2.743914455641061
+800;5;16;1.7844559531658888
+800;5;16;1.795137454289943
+800;5;16;1.754671474918723
+800;6;16;1.2681594076566398
+800;6;16;1.2242525001056492
+800;6;16;1.2942032269202173
+800;7;16;1.0078809931874275
+800;7;16;1.0316235939972103
+800;7;16;1.0379106737673283
+800;8;16;0.8636039649136364
+800;8;16;0.8836448309011757
+800;8;16;0.8675666828639805
+800;9;16;0.8217232823371887
+800;9;16;0.8141451748088002
+800;9;16;0.8879383755847812
+800;10;16;0.8032627403736115
+800;10;16;0.790965499356389
+800;10;16;0.7719701924361289
+800;11;16;0.775052934885025
+800;11;16;0.7863136758096516
+800;11;16;0.7699855691753328
+800;12;16;0.7268759598955512
+800;12;16;0.7416912410408258
+800;12;16;0.7239395705983043
+800;13;16;0.7274400270543993
+800;13;16;0.7136987750418484
+800;13;16;0.7242374992929399
+800;14;16;0.7333642770536244
+800;14;16;0.7298130737617612
+800;14;16;0.7357385512441397
+800;15;16;0.7113026860170066
+800;15;16;0.7115092552267015
+800;15;16;0.7147729960270226
+800;16;16;0.7343269921839237
+800;16;16;0.7277633068151772
+800;16;16;0.7470175549387932
+800;17;16;0.7087195003405213
+800;17;16;0.7273335340432823
+800;17;16;0.7066979217343032
+800;18;16;0.7008385430090129
+800;18;16;0.7211737250909209
+800;18;16;0.7053795196115971
+800;19;16;0.704965204000473
+800;19;16;0.7185817346908152
+800;19;16;0.7119517708197236
+800;20;16;0.7045390028506517
+800;20;16;0.7090244409628212
+800;20;16;0.6993431178852916
+800;21;16;0.7067825132980943
+800;21;16;0.7152607310563326
+800;21;16;0.7141714952886105
+800;22;16;0.7289159940555692
+800;22;16;0.7070880490355194
+800;22;16;0.7090400322340429
+800;23;16;0.7122855372726917
+800;23;16;0.7262964779511094
+800;23;16;0.7180132349021733
+800;24;16;0.7030764939263463
+800;24;16;0.7233439306728542
+800;24;16;0.7046146122738719
+800;25;16;0.7067729285918176
+800;25;16;0.7068284871056676
+800;25;16;0.7069635195657611
+800;26;16;0.7092408840544522
+800;26;16;0.7142819189466536
+800;26;16;0.7060380070470273
+800;27;16;0.7240377422422171
+800;27;16;0.703698709141463
+800;27;16;0.7189373909495771
+800;28;16;0.7107441178523004
+800;28;16;0.7102009649388492
+800;28;16;0.7038759361021221
+800;29;16;0.7044810829684138
+800;29;16;0.7004124890081584
+800;29;16;0.7011993718333542
+800;30;16;0.7012511510401964
+800;30;16;0.7043010322377086
+800;30;16;0.7103770151734352
