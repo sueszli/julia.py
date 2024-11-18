@@ -1,5 +1,7 @@
 ![Julia Set](./assets/out.png)
 
+# julia fractals in python ✨
+
 for benchmarking i used two different seeds i refer to as the "special seed" and the "benchmark seed" to evaluate the performance of our implementation.
 
 ![Absolute Runtime vs. Number of Processes](./assets/nprocs-exectime.png)
