@@ -1,10 +1,6 @@
 ![Julia Set](./assets/out.png)
 
-<br><br><br>
-
-# benchmark results
-
-i used two different seeds i refer to as the "special seed" and the "benchmark seed" to evaluate the performance of our implementation.
+for benchmarking i used two different seeds i refer to as the "special seed" and the "benchmark seed" to evaluate the performance of our implementation.
 
 ![Absolute Runtime vs. Number of Processes](./assets/nprocs-exectime.png)
 
